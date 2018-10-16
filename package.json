@@ -1,0 +1,22 @@
+{
+  "name": "hamro-ku",
+  "version": "1.0.0",
+  "description": "Second Year Project",
+  "main": "server/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aseemregmi/Hamro-KU.git"
+  },
+  "author": "Aseem,Niranjan,Amrit,Suyog",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aseemregmi/Hamro-KU/issues"
+  },
+  "homepage": "https://github.com/aseemregmi/Hamro-KU#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
