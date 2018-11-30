@@ -1,0 +1,37 @@
+.nav {
+  display: flex;
+  height: 5rem;
+  width: 100%;
+  align-items: center;
+  background-color: $color-primary-dark;
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 1rem;
+    color: $color-white;
+  }
+
+  &__buttons {
+    margin-right: 2rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+  }
+
+  &__button {
+    text-decoration: none;
+    color: $color-white;
+    padding: 1rem;
+    font-size: 1.5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    margin-left: 1rem;
+
+    &:hover {
+      background-color: $color-primary-light;
+    }
+  }
+}
