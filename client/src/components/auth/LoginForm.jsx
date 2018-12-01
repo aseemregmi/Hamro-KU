@@ -34,13 +34,13 @@ class LoginForm extends Component {
         <h1 className="page-title mb-6">Login</h1>
         <Input
           type="email"
-          placeholder="Enter email"
+          placeholder="Email"
           name="email"
           value={this.state.email}
           handleChange={this.handleChange}
         />
         <Input
-          placeholder="Enter Password"
+          placeholder="Password"
           type="password"
           name="password"
           value={this.state.password}

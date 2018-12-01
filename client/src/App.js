@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './sass/main.scss';
 
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import Nav from './components/nav/Nav';
+import Explore from './components/pages/Explore';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Nav />
-        {/* <Login /> */}
-        <SignUp />
-      </div>
+      <Router>
+        <div className="App">
+          <Nav />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/explore" component={Explore} />
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }

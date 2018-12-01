@@ -29,33 +29,33 @@ class TeacherSignupForm extends Component {
       <form className="form" onSubmit={this.handleSubmit}>
         <h1 className="page-title mb-6">Teacher Sign Up</h1>
         <Input
-          placeholder="Enter Your Name"
+          placeholder="Name"
           value={this.state.name}
           handleChange={this.handleChange}
           name="name"
         />
         <Input
-          placeholder="Enter Your Email"
+          placeholder="Email"
           value={this.state.email}
           handleChange={this.handleChange}
           name="email"
           type="email"
         />
         <Input
-          placeholder="Enter Your Password"
+          placeholder="Password"
           value={this.state.password}
           handleChange={this.handleChange}
           type="password"
           name="password"
         />
         <Input
-          placeholder="Enter Your Department"
+          placeholder="Department"
           value={this.state.department}
           handleChange={this.handleChange}
           name="department"
         />
         <Input
-          placeholder="Enter Your Post"
+          placeholder="Post"
           value={this.state.post}
           handleChange={this.handleChange}
           name="post"

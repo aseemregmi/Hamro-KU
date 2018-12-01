@@ -1,0 +1,17 @@
+.explore {
+  width: 95%;
+  height: 60.4rem;
+  margin: 5rem auto;
+  overflow: hidden;
+
+  & > *:last-child {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@media (max-width: 512px) {
+  .explore {
+    margin: 1rem;
+  }
+}
