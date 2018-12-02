@@ -1,0 +1,40 @@
+.news-and-events {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: darken($color-white, 5%);
+
+  & > * {
+    width: 40%;
+    margin: 5rem 0;
+    padding: 2rem 3rem;
+
+    .title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: $color-primary-dark;
+      margin: 1rem;
+    }
+
+    .contents {
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 2rem;
+
+      a {
+        display: block;
+        text-decoration: none;
+        margin: 1rem;
+        color: #333;
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  & > *:first-child {
+    .title {
+      color: $color-secondary-dark;
+    }
+  }
+}
