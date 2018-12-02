@@ -38,3 +38,18 @@
     }
   }
 }
+
+@media (max-width: 770px) {
+  .news-and-events {
+    flex-direction: column;
+
+    & > * {
+      margin: 5rem 0 0 0;
+      width: 70%;
+
+      &:last-child {
+        margin-bottom: 5rem;
+      }
+    }
+  }
+}

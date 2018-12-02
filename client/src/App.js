@@ -5,6 +5,7 @@ import './sass/main.scss';
 import Login from './components/pages/Login';
 import SignUp from './components/pages/SignUp';
 import Nav from './components/nav/Nav';
+import Footer from './components/nav/Footer';
 import Explore from './components/pages/Explore';
 import Home from './components/pages/Home';
 
@@ -20,6 +21,7 @@ class App extends Component {
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/explore" component={Explore} />
           </Switch>
+          <Footer />
         </div>
       </Router>
     );

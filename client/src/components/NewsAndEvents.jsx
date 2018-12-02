@@ -7,7 +7,11 @@ const NewsAndEvents = props => {
         <p className="title">News And Events</p>
         <div className="contents">
           {props.news.map(item => {
-            return <a href={item.link}>{item.item}</a>;
+            return (
+              <a key={item.link} href={item.link}>
+                {item.item}
+              </a>
+            );
           })}
         </div>
       </div>
@@ -15,7 +19,11 @@ const NewsAndEvents = props => {
         <p className="title">Notice And Announcement</p>
         <div className="contents">
           {props.events.map(item => {
-            return <a href={item.link}>{item.item}</a>;
+            return (
+              <a key={item.link} href={item.link}>
+                {item.item}
+              </a>
+            );
           })}
         </div>
       </div>

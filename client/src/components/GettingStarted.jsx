@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const GettingStarted = props => {
-  function handleLogout() {}
+  function handleLogout(e) {
+    e.preventDefault();
+  }
   return (
     <div className="getting-started">
       <div className="getting-started__left">
@@ -34,7 +36,7 @@ const GettingStarted = props => {
         </p>
         {props.loggedIn ? (
           <a
-            href="#"
+            href="/"
             onClick={handleLogout}
             className="btn btn--secondary btn--block"
           >
