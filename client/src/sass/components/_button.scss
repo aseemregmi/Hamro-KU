@@ -15,6 +15,11 @@
     background-color: $color-secondary-dark;
   }
 
+  &--large {
+    font-size: 2rem;
+    padding: 1.5rem;
+  }
+
   &--block {
     width: 100%;
   }

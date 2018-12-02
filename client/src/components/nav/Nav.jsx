@@ -22,22 +22,32 @@ class NavBar extends Component {
         </Link>
         <div style={{ flex: 1 }} />
         <div className="nav__buttons">
-          <Link to="/me" className="nav__button">
-            Profile
-          </Link>
-
           {this.state.loggedIn ? (
             <React.Fragment>
+              <Link to="/me" className="nav__button">
+                Profile
+              </Link>
               <Link to="/dashboard" className="nav__button">
                 Dashboard
               </Link>
-              <div className="nav__button">Notifications</div>
+              <div className="nav__button">
+                Notifications
+                <div className="nav__button__contents">
+                  <ul>
+                    <li>He liked your post</li>
+                    <li>He is awesome</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="nav__button" onClick={this.handleLogout}>
+                Logout
+              </div>
             </React.Fragment>
-          ) : null}
-
-          <Link to="/login" className="nav__button" onClick={this.handleClick}>
-            {this.state.loggedIn ? 'Logout' : 'Login'}
-          </Link>
+          ) : (
+            <Link to="/login" className="nav__button">
+              Login
+            </Link>
+          )}
         </div>
       </nav>
     );

@@ -33,10 +33,23 @@
     align-items: center;
     transition: all 0.2s;
     margin-left: 1rem;
+    position: relative;
+
+    &__contents {
+      display: none;
+      position: absolute;
+      top: 5rem;
+      left: 1.5rem;
+      color: black;
+    }
 
     &:hover {
       background-color: $color-primary-light;
       cursor: pointer;
+
+      .nav__button__contents {
+        display: block;
+      }
     }
   }
 }

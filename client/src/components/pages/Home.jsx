@@ -55,7 +55,7 @@ class Home extends Component {
               <a
                 href="#"
                 onClick={this.handleLogout}
-                className="btn btn--secondary"
+                className="btn btn--secondary btn--block"
               >
                 Log Out
               </a>
