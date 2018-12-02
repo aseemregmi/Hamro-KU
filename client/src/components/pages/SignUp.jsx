@@ -21,7 +21,10 @@ class SignUp extends Component {
           <TeacherSignUpForm />
         )}
 
-        <div className="btn btn--block" onClick={this.handleSignUpFormChange}>
+        <div
+          className="btn btn--block btn--secondary"
+          onClick={this.handleSignUpFormChange}
+        >
           {this.state.teacherForm
             ? 'Not A Teacher ? Click Here to Sign Up for Student'
             : 'Not A Student ? Click Here to Sign Up for Teacher'}

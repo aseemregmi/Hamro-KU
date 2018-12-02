@@ -1,5 +1,4 @@
 .btn {
-  background-color: $color-secondary-dark;
   padding: 1rem;
   border-radius: 0.5rem;
   font-size: 1.5rem;
@@ -7,6 +6,18 @@
   color: $color-white;
   text-decoration: none;
   text-transform: uppercase;
+
+  &--primary {
+    background-color: $color-primary-dark;
+  }
+
+  &--secondary {
+    background-color: $color-secondary-dark;
+  }
+
+  &--block {
+    width: 100%;
+  }
 
   &:hover {
     cursor: pointer;

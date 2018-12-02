@@ -3,20 +3,24 @@
   width: 100%;
   align-items: center;
   background-color: $color-primary-dark;
+  height: $navbar-height;
 
   &__title {
     font-size: 2rem;
     font-weight: 500;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
     color: $color-white;
     text-decoration: none;
+    margin-left: 6rem;
   }
 
   &__buttons {
-    margin-right: 2rem;
+    margin-right: 5rem;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+    height: $navbar-height;
   }
 
   &__button {
@@ -33,6 +37,22 @@
     &:hover {
       background-color: $color-primary-light;
       cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 570px) {
+  .nav {
+    height: ($navbar-height * 2);
+
+    &__buttons {
+      height: ($navbar-height * 2);
+      margin-right: 0;
+    }
+
+    &__title {
+      margin-left: 2rem;
+      font-size: 1.5rem;
     }
   }
 }

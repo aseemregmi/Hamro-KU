@@ -5,3 +5,17 @@
   color: $color-primary;
   width: 100%;
 }
+
+.heading1 {
+  font-weight: 700;
+  font-size: 3rem;
+  color: $color-secondary-dark;
+  text-align: center;
+}
+
+.heading2 {
+  font-weight: 500;
+  font-size: 2rem;
+  color: $color-primary;
+  text-align: center;
+}

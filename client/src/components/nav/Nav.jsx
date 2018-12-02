@@ -17,7 +17,7 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="nav">
-        <Link to="/" className="nav__title ml-6">
+        <Link to="/" className="nav__title">
           Hamro-KU
         </Link>
         <div style={{ flex: 1 }} />
