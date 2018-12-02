@@ -8,6 +8,7 @@ import Nav from './components/nav/Nav';
 import Footer from './components/nav/Footer';
 import Explore from './components/pages/Explore';
 import Home from './components/pages/Home';
+import Dashboard from './components/pages/Dashboard';
 
 class App extends Component {
   render() {
@@ -20,6 +21,8 @@ class App extends Component {
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/explore" component={Explore} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/dashboard/:option" component={Dashboard} />
           </Switch>
           <Footer />
         </div>
