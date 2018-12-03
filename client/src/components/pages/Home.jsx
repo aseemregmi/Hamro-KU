@@ -20,8 +20,6 @@ class Home extends Component {
     axios('/api/kunewsandevents').then(res => {
       const { news, notice } = res.data;
       this.setState({ news, notice });
-
-      console.log();
     });
   }
 
