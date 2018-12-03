@@ -24,6 +24,16 @@
     width: 100%;
   }
 
+  &--submit {
+    height: auto;
+    padding: 1rem;
+    box-shadow: none;
+    margin: 0px 0px 0px 1rem;
+    border: none;
+    margin: none;
+    height: 5rem;
+  }
+
   &:hover {
     cursor: pointer;
   }

@@ -1,10 +1,28 @@
 // Libraries
 const express = require('express');
+const socketIo = require('socket.io');
 const cors = require('cors');
 const path = require('path');
 
 // Init express app
 const app = express();
+
+// Init http server
+const http = require('http').Server(app);
+
+// Init socketIO
+const io = socketIo(http);
+
+io.on('connection', socket => {
+  console.log('A User Connected');
+
+  socket.emit('newMessageFromServer', 'Welcome');
+
+  socket.on('newMessageFromClient', (message, callback) => {
+    callback();
+    socket.emit('newMessageFromServer', { text: message.text });
+  });
+});
 
 // Middlewares
 // Cors
@@ -28,4 +46,4 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 5000;
 
 // Listening in port
-app.listen(port, () => console.log(`Listening in port ${port}`));
+http.listen(port, () => console.log(`Listening in port ${port}`));

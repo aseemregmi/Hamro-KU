@@ -1,0 +1,47 @@
+.chat-room {
+  height: calc(100vh - 5rem);
+  background-color: lighten($color-tertiary-dark, 36%);
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+
+  &__messages {
+    flex: 1;
+    margin-bottom: 1rem;
+    overflow-y: scroll;
+    padding: 1rem;
+
+    background-color: rgba($color-white, 0.2);
+  }
+
+  &__controls {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+
+    .messages {
+      padding: 1.2rem;
+      font-size: 1.5rem;
+      border: none;
+      flex: 1;
+      border-radius: 5px;
+    }
+  }
+}
+
+@media (max-width: 570px) {
+  .chat-room {
+    height: calc(100vh - 10rem);
+
+    &__controls {
+      flex-direction: column;
+
+      & > * {
+        margin-top: 2rem;
+        width: 100%;
+      }
+    }
+  }
+}

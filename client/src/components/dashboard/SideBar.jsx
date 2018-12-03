@@ -20,6 +20,7 @@ const SideBar = props => {
         <Link to="/dashboard/assignments">Assignments</Link>
         <Link to="/dashboard/notes">Notes</Link>
         <Link to="/dashboard/teachers">Teachers</Link>
+        <Link to="/dashboard/teachers">Messages</Link>
         <Link to="/dashboard/chat-room">Class Chat Room</Link>
       </div>
     </div>
