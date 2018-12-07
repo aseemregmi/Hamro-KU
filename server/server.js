@@ -30,12 +30,16 @@ const { kuNewsAndEvents } = require('./routes/api/kunewsandevents');
 const { studentsApi } = require('./routes/api/student');
 const { groupsApi } = require('./routes/api/group');
 const { subjectsApi } = require('./routes/api/subject');
+const { classesApi } = require('./routes/api/class');
+const { teachersApi } = require('./routes/api/teacher');
 
 // Setup routes
 app.use('/api/kunewsandevents', kuNewsAndEvents);
 app.use('/api/students', studentsApi);
 app.use('/api/groups', groupsApi);
 app.use('/api/subjects', subjectsApi);
+app.use('/api/classes', classesApi);
+app.use('/api/teachers', teachersApi);
 
 // React should be serve only at the end so that routes will not me mismatched
 app.get('*', (req, res) => {

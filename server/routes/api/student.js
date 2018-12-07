@@ -62,6 +62,27 @@ router.patch('/specialAuthority/:id', async (req, res) => {
   }
 });
 
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const student = await Student.findOne({ email });
+
+    if (student) {
+      if (student.verified) {
+        await student.matchPassword(password);
+        const token = await student.generateAuthToken();
+        res.send(token);
+      } else {
+        throw 'Your account is not verfied. Please wait till we verify your account';
+      }
+    } else {
+      throw 'Your email is not registered. Please Sign Up First';
+    }
+  } catch (err) {
+    res.send(err).status(400);
+  }
+});
+
 module.exports = {
   studentsApi: router
 };

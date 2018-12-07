@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { Token } = require('./token');
 
 let StudentSchema = new mongoose.Schema({
   email: {
@@ -43,6 +46,44 @@ let StudentSchema = new mongoose.Schema({
     default: false
   }
 });
+
+StudentSchema.methods.generateAuthToken = function() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const token = jwt.sign({ _id: this._id }, 'SANA').toString();
+      const newToken = new Token({ userId: this._id, type: 'auth', token });
+      const newTokenInDB = await newToken.save();
+      resolve(newTokenInDB);
+    } catch (err) {
+      reject(err);
+    }
+  });
+};
+
+StudentSchema.pre('save', function(next) {
+  if (this.isModified('password')) {
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(this.password, salt, (err, hash) => {
+        this.password = hash;
+        next();
+      });
+    });
+  } else {
+    next();
+  }
+});
+
+StudentSchema.methods.matchPassword = function(password) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, this.password, (err, res) => {
+      if (res) {
+        resolve();
+      } else {
+        reject('Password Not Matched');
+      }
+    });
+  });
+};
 
 const Student = mongoose.model('Student', StudentSchema);
 
