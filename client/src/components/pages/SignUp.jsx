@@ -5,13 +5,35 @@ import TeacherSignUpForm from '../auth/TeacherSignUpForm';
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      teacherForm: true
-    };
+
+    const formType = this.props.history.location.search.replace('?type=', '');
+
+    if (formType === 'student') {
+      this.state = {
+        teacherForm: false
+      };
+    } else {
+      this.state = {
+        teacherForm: true
+      };
+    }
   }
-  handleSignUpFormChange = e => {
-    this.setState({ teacherForm: !this.state.teacherForm });
+
+  handleSignUpFormChange = () => {
+    if (this.state.teacherForm === true) {
+      this.props.history.push({ pathname: '/signup', search: '?type=student' });
+      this.setState({ teacherForm: false });
+    } else {
+      this.props.history.push({ pathname: '/signup', search: '?type=teacher' });
+      this.setState({ teacherForm: true });
+    }
+    console.log(this.props.history);
   };
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <div className="signup-page">

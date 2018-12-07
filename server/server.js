@@ -1,8 +1,8 @@
 // Libraries
 const express = require('express');
-const socketIo = require('socket.io');
 const cors = require('cors');
 const path = require('path');
+const socketIo = require('socket.io');
 
 // Init express app
 const app = express();
@@ -12,17 +12,6 @@ const http = require('http').Server(app);
 
 // Init socketIO
 const io = socketIo(http);
-
-io.on('connection', socket => {
-  console.log('A User Connected');
-
-  socket.emit('newMessageFromServer', 'Welcome');
-
-  socket.on('newMessageFromClient', (message, callback) => {
-    callback();
-    socket.emit('newMessageFromServer', { text: message.text });
-  });
-});
 
 // Middlewares
 // Cors
@@ -38,12 +27,19 @@ const { kuNewsAndEvents } = require('./routes/api/kunewsandevents');
 app.use('/api/kunewsandevents', kuNewsAndEvents);
 
 // React should be serve only at the end so that routes will not me mismatched
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + './../', 'client', 'build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + './../', 'client', 'build', 'index.html'));
+// });
 
 // Setup Port
 const port = process.env.PORT || 5000;
 
 // Listening in port
 http.listen(port, () => console.log(`Listening in port ${port}`));
+
+module.exports = {
+  io
+};
+
+// Require chat module
+require('./chatroom');

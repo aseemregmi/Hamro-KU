@@ -9,6 +9,11 @@ class Dashboard extends Component {
       this.props.history.push('/dashboard/progress');
     }
   }
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return (
       <div className="dashboard">

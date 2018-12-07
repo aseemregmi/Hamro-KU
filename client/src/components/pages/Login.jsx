@@ -3,6 +3,8 @@ import LoginForm from './../auth/LoginForm';
 import { Link } from 'react-router-dom';
 
 const Login = props => {
+  window.scrollTo(0, 0);
+
   return (
     <div className="login-page">
       <LoginForm />

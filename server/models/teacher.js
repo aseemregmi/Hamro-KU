@@ -15,7 +15,8 @@ let TeacherSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   phoneNo: {
     type: String,
@@ -28,6 +29,11 @@ let TeacherSchema = new mongoose.Schema({
   },
   post: {
     type: String,
+    required: true,
+    trim: true
+  },
+  verified: {
+    type: Boolean,
     required: true
   }
 });

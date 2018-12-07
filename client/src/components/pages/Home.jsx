@@ -10,7 +10,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
+      loggedIn: true,
       news: [],
       notice: []
     };
@@ -21,13 +21,25 @@ class Home extends Component {
       const { news, notice } = res.data;
       this.setState({ news, notice });
     });
+
+    window.scrollTo(0, 0);
   }
+
+  handleLogout = () => {
+    this.setState({ loggedIn: false });
+
+    // Remove auth token from localStorage
+    // Later task
+  };
 
   render() {
     return (
       <div className="home">
         <WelcomeBlock />
-        <GettingStarted loggedIn={this.state.loggedIn} />
+        <GettingStarted
+          loggedIn={this.state.loggedIn}
+          handleLogout={this.handleLogout}
+        />
         <NewsAndEvents news={this.state.news} events={this.state.notice} />
       </div>
     );

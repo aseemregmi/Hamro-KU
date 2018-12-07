@@ -20,7 +20,7 @@ const NewsAndEvents = props => {
         <div className="contents">
           {props.events.map(item => {
             return (
-              <a key={item.link} href={item.link}>
+              <a key={item.link} target="_blank" href={item.link}>
                 {item.item}
               </a>
             );

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const GettingStarted = props => {
   function handleLogout(e) {
     e.preventDefault();
+    props.handleLogout();
   }
   return (
     <div className="getting-started">
@@ -18,7 +19,10 @@ const GettingStarted = props => {
           </Link>
         ) : (
           <div className="btn-collection">
-            <Link to="/signup" className="btn btn--primary btn--block">
+            <Link
+              to="/signup?type=student"
+              className="btn btn--primary btn--block"
+            >
               SignUp
             </Link>
             <Link to="/login" className="btn btn--primary btn--block">
@@ -44,7 +48,10 @@ const GettingStarted = props => {
           </a>
         ) : (
           <div className="btn-collection">
-            <Link to="/signup" className="btn btn--secondary btn--block">
+            <Link
+              to="/signup?type=teacher"
+              className="btn btn--secondary btn--block"
+            >
               SignUp
             </Link>
             <Link to="/login" className="btn btn--secondary btn--block">
