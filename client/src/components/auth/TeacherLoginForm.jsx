@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 // Components
 import Input from '../utility/Input';
 
-class LoginForm extends Component {
+class TeacherLoginForm extends Component {
   constructor(props) {
     super(props);
 
@@ -22,16 +22,10 @@ class LoginForm extends Component {
     e.preventDefault();
   };
 
-  componentDidMount() {
-    // axios.get('/hi').then(res => {
-    //   console.log(res.data);
-    // });
-  }
-
   render() {
     return (
       <form className="form" onSubmit={this.handleSubmit}>
-        <h1 className="page-title mb-6">Login</h1>
+        <h1 className="page-title mb-6">Teacher Login</h1>
         <Input
           type="email"
           placeholder="Email"
@@ -52,4 +46,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default TeacherLoginForm;

@@ -1,7 +1,5 @@
 .explore {
-  width: 95%;
-  height: 60.4rem;
-  margin: 5rem auto;
+  height: calc(100vh - 5rem);
   overflow: hidden;
 
   & > *:last-child {
@@ -10,8 +8,8 @@
   }
 }
 
-@media (max-width: 512px) {
+@media (max-width: 570px) {
   .explore {
-    margin: 1rem;
+    height: calc(100vh - 10rem);
   }
 }

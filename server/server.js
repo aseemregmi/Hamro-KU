@@ -13,6 +13,11 @@ const http = require('http').Server(app);
 // Init socketIO
 const io = socketIo(http);
 
+require('./db/mongoose');
+
+// Body Parser
+app.use(express.json());
+
 // Middlewares
 // Cors
 app.use(cors());
@@ -22,14 +27,20 @@ app.use(express.static(__dirname + './../client/build'));
 
 // Routes
 const { kuNewsAndEvents } = require('./routes/api/kunewsandevents');
+const { studentsApi } = require('./routes/api/student');
+const { groupsApi } = require('./routes/api/group');
+const { subjectsApi } = require('./routes/api/subject');
 
 // Setup routes
 app.use('/api/kunewsandevents', kuNewsAndEvents);
+app.use('/api/students', studentsApi);
+app.use('/api/groups', groupsApi);
+app.use('/api/subjects', subjectsApi);
 
 // React should be serve only at the end so that routes will not me mismatched
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname + './../', 'client', 'build', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + './../', 'client', 'build', 'index.html'));
+});
 
 // Setup Port
 const port = process.env.PORT || 5000;

@@ -7,7 +7,7 @@ let SubjectSchema = new mongoose.Schema({
   },
   subjectCode: {
     type: String,
-    required: true
+    unique: true
   },
   credit: {
     type: String,

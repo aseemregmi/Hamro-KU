@@ -25,7 +25,10 @@ const GettingStarted = props => {
             >
               SignUp
             </Link>
-            <Link to="/login" className="btn btn--primary btn--block">
+            <Link
+              to="/login?type=student"
+              className="btn btn--primary btn--block"
+            >
               Log In
             </Link>
           </div>
@@ -54,7 +57,10 @@ const GettingStarted = props => {
             >
               SignUp
             </Link>
-            <Link to="/login" className="btn btn--secondary btn--block">
+            <Link
+              to="/login?type=teacher"
+              className="btn btn--secondary btn--block"
+            >
               Log In
             </Link>
           </div>

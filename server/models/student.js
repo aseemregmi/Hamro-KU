@@ -36,7 +36,11 @@ let StudentSchema = new mongoose.Schema({
   },
   verified: {
     type: Boolean,
-    required: true
+    default: false
+  },
+  specialAuthority: {
+    type: Boolean,
+    default: false
   }
 });
 

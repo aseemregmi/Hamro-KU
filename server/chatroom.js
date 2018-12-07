@@ -1,7 +1,5 @@
 const { io } = require('./server');
 
-console.log('Hey');
-
 io.on('connection', socket => {
   console.log('A User Connected');
 

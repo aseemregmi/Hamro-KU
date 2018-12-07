@@ -1,9 +1,15 @@
 const mongoose = require('mongoose');
+// Require database
+mongoose.Promise = global.Promise;
 
-mongoose.createConnection(
-  'mongodb://localhost/Hamro-KU',
+mongoose.connect(
+  'mongodb://localhost/HamroKU',
   { useNewUrlParser: true },
-  () => {
-    console.log('Connected to MongoDB Local Server');
+  error => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Connected to MongoDB Server');
+    }
   }
 );

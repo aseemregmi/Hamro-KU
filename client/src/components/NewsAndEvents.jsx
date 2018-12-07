@@ -8,7 +8,12 @@ const NewsAndEvents = props => {
         <div className="contents">
           {props.news.map(item => {
             return (
-              <a key={item.link} href={item.link}>
+              <a
+                key={item.link}
+                href={item.link}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {item.item}
               </a>
             );
@@ -20,7 +25,12 @@ const NewsAndEvents = props => {
         <div className="contents">
           {props.events.map(item => {
             return (
-              <a key={item.link} target="_blank" href={item.link}>
+              <a
+                key={item.link}
+                rel="noopener noreferrer"
+                target="_blank"
+                href={item.link}
+              >
                 {item.item}
               </a>
             );

@@ -1,18 +1,54 @@
-import React from 'react';
-import LoginForm from './../auth/LoginForm';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import StudentLoginForm from './../auth/StudentLoginForm';
+import TeacherLoginForm from './../auth/TeacherLoginForm';
 
-const Login = props => {
-  window.scrollTo(0, 0);
+class Login extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className="login-page">
-      <LoginForm />
-      <Link to="/signup" className="btn btn--block">
-        Don't Have an account ? Sign Up Here
-      </Link>
-    </div>
-  );
-};
+    const formType = this.props.history.location.search.replace('?type=', '');
+
+    if (formType === 'student') {
+      this.state = {
+        teacherForm: false
+      };
+    } else {
+      this.state = {
+        teacherForm: true
+      };
+    }
+  }
+
+  handleLoginFormChange = () => {
+    if (this.state.teacherForm === true) {
+      this.props.history.push({ pathname: '/login', search: '?type=student' });
+      this.setState({ teacherForm: false });
+    } else {
+      this.props.history.push({ pathname: '/login', search: '?type=teacher' });
+      this.setState({ teacherForm: true });
+    }
+    console.log(this.props.history);
+  };
+
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
+  render() {
+    return (
+      <div className="login-page">
+        {!this.state.teacherForm ? <StudentLoginForm /> : <TeacherLoginForm />}
+        <div
+          className="btn btn--block btn--secondary"
+          onClick={this.handleLoginFormChange}
+        >
+          {this.state.teacherForm
+            ? 'Not A Teacher ? Click Here to Login for Student'
+            : 'Not A Student ? Click Here to Login for Teacher'}
+        </div>
+      </div>
+    );
+  }
+}
 
 export default Login;
