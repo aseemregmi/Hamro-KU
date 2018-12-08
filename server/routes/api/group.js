@@ -21,7 +21,7 @@ router.post('/', (req, res) => {
       res.send(group);
     })
     .catch(err => {
-      res.send(err).status(400);
+      res.status(400).send(err);
     });
 });
 
@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
       res.send(groups);
     })
     .catch(err => {
-      res.send(err).status(400);
+      res.status(400).send(err);
     });
 });
 

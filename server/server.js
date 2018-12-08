@@ -7,6 +7,9 @@ const socketIo = require('socket.io');
 // Init express app
 const app = express();
 
+// Setup cors
+app.use(cors());
+
 // Init http server
 const http = require('http').Server(app);
 
@@ -33,6 +36,7 @@ const { subjectsApi } = require('./routes/api/subject');
 const { classesApi } = require('./routes/api/class');
 const { teachersApi } = require('./routes/api/teacher');
 const { adminsApi } = require('./routes/api/admin');
+const { tokensApi } = require('./routes/api/token');
 
 // Setup routes
 app.use('/api/kunewsandevents', kuNewsAndEvents);
@@ -41,7 +45,7 @@ app.use('/api/groups', groupsApi);
 app.use('/api/subjects', subjectsApi);
 app.use('/api/classes', classesApi);
 app.use('/api/teachers', teachersApi);
-app.use('/api/admins', adminsApi);
+app.use('/api/tokens', tokensApi);
 
 // React should be serve only at the end so that routes will not me mismatched
 app.get('*', (req, res) => {

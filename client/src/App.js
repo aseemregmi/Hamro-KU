@@ -9,24 +9,45 @@ import Footer from './components/nav/Footer';
 import Explore from './components/pages/Explore';
 import Home from './components/pages/Home';
 import Dashboard from './components/pages/Dashboard';
+import { Provider } from './context';
+import isAuthenticated from './components/hocs/isAuthenticated';
+import isNotAuthenticated from './components/hocs/isNotAuthenticated';
+import passAuthProps from './components/hocs/passAuthProps';
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <div className="App">
-          <Nav />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/explore" component={Explore} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/dashboard/:option" component={Dashboard} />
-          </Switch>
-          <Footer />
-        </div>
-      </Router>
+      <Provider>
+        <Router>
+          <div className="App">
+            <Nav />
+            <Switch>
+              <Route exact path="/" component={passAuthProps(Home)} />
+              <Route
+                exact
+                path="/login"
+                component={isNotAuthenticated(Login)}
+              />
+              <Route
+                exact
+                path="/signup"
+                component={isNotAuthenticated(SignUp)}
+              />
+              <Route exact path="/explore" component={Explore} />
+              <Route
+                exact
+                path="/dashboard"
+                component={isAuthenticated(Dashboard)}
+              />
+              <Route
+                path="/dashboard/:option"
+                component={isAuthenticated(Dashboard)}
+              />
+            </Switch>
+            <Footer />
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }

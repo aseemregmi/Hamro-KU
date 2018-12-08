@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
       if (teacher.verified) {
         await teacher.matchPassword(password);
         const token = await teacher.generateAuthToken();
-        console.log(token);
+
         res.send(token);
       } else {
         throw 'Your account is not verfied. Please wait till we verify your account';
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
       throw 'Your email is not registered. Please Sign Up First';
     }
   } catch (err) {
-    res.send(err).status(400);
+    res.status(400).send(err);
   }
 });
 

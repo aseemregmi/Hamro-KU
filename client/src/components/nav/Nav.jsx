@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import passAuthProps from './../hocs/passAuthProps';
+import axios from 'axios';
 
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    loggedIn: false
+  };
 
-    this.state = {
-      loggedIn: true
+  static getDerivedStateFromProps(props) {
+    const loggedIn = props.auth ? true : false;
+    return {
+      loggedIn
     };
   }
-  handleClick = e => {
-    if (this.state.loggedIn) {
-      e.preventDefault();
+
+  handleLogout = async () => {
+    try {
+      await axios.post('/api/tokens/delete', {
+        token: this.props.auth.token
+      });
+      this.props.dispatch({ type: 'LOGOUT' });
+      this.props.history.push('/');
+    } catch (err) {
+      alert(err);
     }
   };
+
   render() {
     return (
       <nav className="nav">
@@ -44,9 +57,14 @@ class NavBar extends Component {
               </div>
             </React.Fragment>
           ) : (
-            <Link to="/login" className="nav__button">
-              Login
-            </Link>
+            <React.Fragment>
+              <Link to="/login?type=student" className="nav__button">
+                Login
+              </Link>
+              <Link to="/signup?type=student" className="nav__button">
+                Sign Up
+              </Link>
+            </React.Fragment>
           )}
         </div>
       </nav>
@@ -54,4 +72,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default passAuthProps(withRouter(NavBar));

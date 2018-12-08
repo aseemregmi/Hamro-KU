@@ -8,13 +8,13 @@ router.post('/', (req, res) => {
   newAdmin
     .save()
     .then(admin => res.send(admin))
-    .catch(err => res.send(err).status(400));
+    .catch(err => res.status(400).send(err));
 });
 
 router.get('/', (req, res) => {
   Admin.find({})
     .then(admins => res.send(admins))
-    .catch(err => res.send(err).status(400));
+    .catch(err => res.status(400).send(err));
 });
 
 router.post('/login', async (req, res) => {
@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
       throw 'You are not registered as admin';
     }
   } catch (err) {
-    res.send(err).status(400);
+    res.status(400).send(err);
   }
 });
 

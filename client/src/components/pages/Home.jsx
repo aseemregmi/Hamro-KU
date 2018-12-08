@@ -12,24 +12,38 @@ class Home extends Component {
     this.state = {
       loggedIn: true,
       news: [],
-      notice: []
+      notice: [],
+      fetchingStatus: 'fetching'
+    };
+  }
+
+  static getDerivedStateFromProps(props) {
+    const loggedIn = props.auth ? true : false;
+    return {
+      loggedIn
     };
   }
 
   componentDidMount() {
-    axios('/api/kunewsandevents').then(res => {
-      const { news, notice } = res.data;
-      this.setState({ news, notice });
-    });
+    axios('/api/kunewsandevents')
+      .then(res => {
+        const { news, notice } = res.data;
+        this.setState({ news, notice, fetchingStatus: 'fetched' });
+      })
+      .catch(() => this.setState({ fetchingStatus: 'failed' }));
 
     window.scrollTo(0, 0);
   }
 
-  handleLogout = () => {
-    this.setState({ loggedIn: false });
-
-    // Remove auth token from localStorage
-    // Later task
+  handleLogout = async () => {
+    try {
+      await axios.post('/api/tokens/delete', {
+        token: this.props.auth.token
+      });
+      this.props.dispatch({ type: 'LOGOUT' });
+    } catch (err) {
+      alert(err);
+    }
   };
 
   render() {
@@ -40,7 +54,11 @@ class Home extends Component {
           loggedIn={this.state.loggedIn}
           handleLogout={this.handleLogout}
         />
-        <NewsAndEvents news={this.state.news} events={this.state.notice} />
+        <NewsAndEvents
+          fetchingStatus={this.state.fetchingStatus}
+          news={this.state.news}
+          events={this.state.notice}
+        />
       </div>
     );
   }

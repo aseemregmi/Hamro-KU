@@ -17,13 +17,19 @@ class Login extends Component {
     } else if (formType === 'teacher') {
       this.state = {
         teacherForm: true,
-        studetForm: false
+        studentForm: false
       };
     } else if (formType === 'admin') {
       this.state = {
         adminForm: true,
         teacherForm: false,
         studetForm: false
+      };
+    } else {
+      this.state = {
+        adminForm: false,
+        teacherForm: false,
+        studetForm: true
       };
     }
   }
@@ -35,6 +41,13 @@ class Login extends Component {
     } else if (this.state.studentForm === true) {
       this.props.history.push({ pathname: '/login', search: '?type=teacher' });
       this.setState({ teacherForm: true, studentForm: false });
+    } else {
+      this.props.history.push({ pathname: '/login', search: '?type=student' });
+      this.setState({
+        teacherForm: false,
+        studentForm: true,
+        adminForm: false
+      });
     }
   };
 
@@ -45,9 +58,15 @@ class Login extends Component {
   render() {
     return (
       <div className="login-page">
-        {this.state.teacherForm ? <TeacherLoginForm /> : null}
-        {this.state.studentForm ? <StudentLoginForm /> : null}
-        {this.state.adminForm ? <AdminLoginForm /> : null}
+        {this.state.teacherForm ? (
+          <TeacherLoginForm dispatch={this.props.dispatch} {...this.props} />
+        ) : null}
+        {this.state.studentForm ? (
+          <StudentLoginForm dispatch={this.props.dispatch} {...this.props} />
+        ) : null}
+        {this.state.adminForm ? (
+          <AdminLoginForm dispatch={this.props.dispatch} {...this.props} />
+        ) : null}
         {!this.state.adminForm ? (
           <div
             className="btn btn--block btn--secondary"
@@ -56,6 +75,14 @@ class Login extends Component {
             {this.state.teacherForm
               ? 'Not A Teacher ? Click Here to Login for Student'
               : 'Not A Student ? Click Here to Login for Teacher'}
+          </div>
+        ) : null}
+        {this.state.adminForm ? (
+          <div
+            className="btn btn--block btn--secondary"
+            onClick={this.handleLoginFormChange}
+          >
+            Not A Admin ? Click Here to Login for Student
           </div>
         ) : null}
       </div>

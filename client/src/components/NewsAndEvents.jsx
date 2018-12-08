@@ -1,11 +1,21 @@
 import React from 'react';
 
 const NewsAndEvents = props => {
+  console.log(props);
   return (
     <div className="news-and-events">
       <div>
         <p className="title">News And Events</p>
         <div className="contents">
+          {props.fetchingStatus === 'fetching' ? (
+            <a rel="noopener noreferrer" target="_blank" href="/">
+              Getting News And Events. Click Here to Refresh
+            </a>
+          ) : null}
+          {props.fetchingStatus === 'failed' ? (
+            <a href="/">Couldn't get News And Events. Click Here to Refresh</a>
+          ) : null}
+
           {props.news.map(item => {
             return (
               <a
@@ -23,6 +33,12 @@ const NewsAndEvents = props => {
       <div>
         <p className="title">Notice And Announcement</p>
         <div className="contents">
+          {props.fetchingStatus === 'failed' ? (
+            <a href="/">Couldn't get News And Events. Click Here to Refresh</a>
+          ) : null}
+          {props.fetchingStatus === 'fetching' ? (
+            <a href="/">Getting News And Events. Click Here to Refresh</a>
+          ) : null}
           {props.events.map(item => {
             return (
               <a

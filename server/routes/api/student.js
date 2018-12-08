@@ -58,7 +58,7 @@ router.patch('/specialAuthority/:id', async (req, res) => {
     const updatedStudent = await student.save();
     res.send(updatedStudent);
   } catch (err) {
-    res.send(err).status(400);
+    res.status(400).send(err);
   }
 });
 
@@ -66,7 +66,6 @@ router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     const student = await Student.findOne({ email });
-
     if (student) {
       if (student.verified) {
         await student.matchPassword(password);
@@ -79,7 +78,7 @@ router.post('/login', async (req, res) => {
       throw 'Your email is not registered. Please Sign Up First';
     }
   } catch (err) {
-    res.send(err).status(400);
+    res.status(400).send(err);
   }
 });
 

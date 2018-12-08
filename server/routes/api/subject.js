@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
   newSubject
     .save()
     .then(subject => res.send(subject))
-    .catch(err => res.send(err).status(400));
+    .catch(err => res.status(400).send(err));
 });
 
 module.exports = {

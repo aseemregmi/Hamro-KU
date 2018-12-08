@@ -5,9 +5,7 @@ import TeacherSignUpForm from '../auth/TeacherSignUpForm';
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
     const formType = this.props.history.location.search.replace('?type=', '');
-
     if (formType === 'student') {
       this.state = {
         teacherForm: false
@@ -27,7 +25,6 @@ class SignUp extends Component {
       this.props.history.push({ pathname: '/signup', search: '?type=teacher' });
       this.setState({ teacherForm: true });
     }
-    console.log(this.props.history);
   };
 
   componentDidMount() {

@@ -23,3 +23,23 @@
     margin: 2rem 0;
   }
 }
+
+.error-msg {
+  display: block;
+  background: $color-secondary-light;
+  color: $color-white;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  border-radius: 100px;
+  text-align: center;
+}
+
+.success-msg {
+  display: block;
+  background: $color-primary-light;
+  color: $color-white;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  border-radius: 100px;
+  text-align: center;
+}
