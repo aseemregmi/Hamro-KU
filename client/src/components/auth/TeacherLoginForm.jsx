@@ -28,7 +28,6 @@ class TeacherLoginForm extends Component {
           'You are successfully logged in. You are being redirected to dashboard...'
       });
       setTimeout(() => {
-        this.setState({ success: null });
         this.props.history.push('/dashboard');
       }, 1500);
     } catch (err) {

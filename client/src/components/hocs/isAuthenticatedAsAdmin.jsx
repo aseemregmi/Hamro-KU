@@ -10,8 +10,8 @@ const isAuthenticated = ComponentToCheckAuthentication => {
     }
 
     componentDidMount() {
-      if (!this.state.auth || this.state.auth.type === 'admin') {
-        this.props.history.push('/login?type=student');
+      if (!this.state.auth.type === 'admin') {
+        this.props.history.push('/login?type=admin');
       }
     }
 

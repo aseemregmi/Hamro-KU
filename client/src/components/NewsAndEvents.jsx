@@ -1,7 +1,6 @@
 import React from 'react';
 
 const NewsAndEvents = props => {
-  console.log(props);
   return (
     <div className="news-and-events">
       <div>

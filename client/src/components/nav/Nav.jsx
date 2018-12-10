@@ -5,14 +5,21 @@ import axios from 'axios';
 
 class NavBar extends Component {
   state = {
-    loggedIn: false
+    loggedIn: false,
+    authType: null
   };
 
   static getDerivedStateFromProps(props) {
-    const loggedIn = props.auth ? true : false;
-    return {
-      loggedIn
-    };
+    if (props.auth) {
+      const loggedIn = props.auth ? true : false;
+      const authType = props.auth.type;
+      return {
+        loggedIn,
+        authType
+      };
+    } else {
+      return {};
+    }
   }
 
   handleLogout = async () => {
@@ -21,7 +28,7 @@ class NavBar extends Component {
         token: this.props.auth.token
       });
       this.props.dispatch({ type: 'LOGOUT' });
-      this.props.history.push('/');
+      this.setState({ loggedIn: false, authType: null });
     } catch (err) {
       alert(err);
     }
@@ -35,7 +42,17 @@ class NavBar extends Component {
         </Link>
         <div style={{ flex: 1 }} />
         <div className="nav__buttons">
-          {this.state.loggedIn ? (
+          {this.state.authType === 'admin' ? (
+            <React.Fragment>
+              <Link to="/admin-panel" className="nav__button">
+                Admin Panel
+              </Link>
+              <div className="nav__button" onClick={this.handleLogout}>
+                Logout
+              </div>
+            </React.Fragment>
+          ) : null}
+          {this.state.loggedIn && this.state.authType !== 'admin' ? (
             <React.Fragment>
               <Link to="/me" className="nav__button">
                 Profile
@@ -56,7 +73,8 @@ class NavBar extends Component {
                 Logout
               </div>
             </React.Fragment>
-          ) : (
+          ) : null}
+          {!this.state.loggedIn ? (
             <React.Fragment>
               <Link to="/login?type=student" className="nav__button">
                 Login
@@ -65,7 +83,7 @@ class NavBar extends Component {
                 Sign Up
               </Link>
             </React.Fragment>
-          )}
+          ) : null}
         </div>
       </nav>
     );

@@ -45,6 +45,7 @@ app.use('/api/groups', groupsApi);
 app.use('/api/subjects', subjectsApi);
 app.use('/api/classes', classesApi);
 app.use('/api/teachers', teachersApi);
+app.use('/api/admins', adminsApi);
 app.use('/api/tokens', tokensApi);
 
 // React should be serve only at the end so that routes will not me mismatched

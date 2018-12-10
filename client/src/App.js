@@ -11,8 +11,10 @@ import Home from './components/pages/Home';
 import Dashboard from './components/pages/Dashboard';
 import { Provider } from './context';
 import isAuthenticated from './components/hocs/isAuthenticated';
+import isAuthenticatedAsAdmin from './components/hocs/isAuthenticatedAsAdmin';
 import isNotAuthenticated from './components/hocs/isNotAuthenticated';
 import passAuthProps from './components/hocs/passAuthProps';
+import AdminPanel from './components/pages/AdminPanel';
 
 class App extends Component {
   render() {
@@ -42,6 +44,14 @@ class App extends Component {
               <Route
                 path="/dashboard/:option"
                 component={isAuthenticated(Dashboard)}
+              />
+              <Route
+                path="/admin-panel"
+                component={isAuthenticatedAsAdmin(AdminPanel)}
+              />
+              <Route
+                path="/admin-panel/:options"
+                component={isAuthenticatedAsAdmin(AdminPanel)}
               />
             </Switch>
             <Footer />

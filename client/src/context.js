@@ -3,11 +3,9 @@ import React, { Component } from 'react';
 const Context = React.createContext();
 
 const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case 'LOGIN':
       localStorage.setItem('auth', JSON.stringify(action.payload));
-      console.log(action);
       return {
         auth: action.payload
       };
@@ -27,10 +25,14 @@ const reducer = (state, action) => {
 export class Provider extends Component {
   constructor(props) {
     super(props);
-    const auth = localStorage.getItem('auth');
+    let auth = null;
+    const authFromLocalStorage = localStorage.getItem('auth');
+    if (authFromLocalStorage !== undefined && authFromLocalStorage !== null) {
+      auth = JSON.parse(authFromLocalStorage);
+    }
 
     this.state = {
-      auth: auth === 'undefined' ? null : auth,
+      auth: auth,
       dispatch: action => {
         this.setState(state => reducer(state, action));
       }
