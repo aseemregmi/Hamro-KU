@@ -12,7 +12,6 @@ const reducer = (state, action) => {
 
     case 'LOGOUT':
       localStorage.removeItem('auth');
-      console.log('Inside Action');
       return {
         auth: null
       };

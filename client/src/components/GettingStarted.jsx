@@ -5,29 +5,40 @@ const GettingStarted = props => {
   return (
     <div className="getting-started">
       <div className="getting-started__left">
-        <p className="title">
-          {props.loggedIn ? 'Go to Dashboard' : 'Students Start Here'}
-        </p>
-
         {props.loggedIn ? (
-          <Link to="/dashboard" className="btn btn--primary btn--block">
-            Click Here
-          </Link>
+          props.auth.type === 'admin' ? (
+            <React.Fragment>
+              <p className="title">Go To Admin Panel</p>
+              <Link to="/adminpanel" className="btn btn--primary btn--block">
+                Click Here
+              </Link>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <p className="title">Go To Dashboard</p>
+              <Link to="/dashboard" className="btn btn--primary btn--block">
+                Click Here
+              </Link>
+            </React.Fragment>
+          )
         ) : (
-          <div className="btn-collection">
-            <Link
-              to="/signup?type=student"
-              className="btn btn--primary btn--block"
-            >
-              SignUp
-            </Link>
-            <Link
-              to="/login?type=student"
-              className="btn btn--primary btn--block"
-            >
-              Log In
-            </Link>
-          </div>
+          <React.Fragment>
+            <p className="title">Students Start Here</p>
+            <div className="btn-collection">
+              <Link
+                to="/signup?type=student"
+                className="btn btn--primary btn--block"
+              >
+                SignUp
+              </Link>
+              <Link
+                to="/login?type=student"
+                className="btn btn--primary btn--block"
+              >
+                Log In
+              </Link>
+            </div>
+          </React.Fragment>
         )}
       </div>
 

@@ -53,6 +53,7 @@ class Home extends Component {
         <GettingStarted
           loggedIn={this.state.loggedIn}
           handleLogout={this.handleLogout}
+          auth={this.props.auth}
         />
         <NewsAndEvents
           fetchingStatus={this.state.fetchingStatus}

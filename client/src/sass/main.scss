@@ -15,6 +15,9 @@
 @import './components/news-and-events';
 @import './components/footer';
 @import './components/chat-room';
+@import './components/students';
+@import './components/table';
+@import './components/student-profile-modal';
 
 @import './layout/grid';
 @import './layout/header';
@@ -24,3 +27,4 @@
 @import './pages/signup';
 @import './pages/explore';
 @import './pages/dashboard';
+@import './pages/adminpanel';

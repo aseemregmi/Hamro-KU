@@ -35,9 +35,10 @@ let TeacherSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  departmentId: {
+  department: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Department'
   },
   verified: {
     type: Boolean,

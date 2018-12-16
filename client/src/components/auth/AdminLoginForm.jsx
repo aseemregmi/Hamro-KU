@@ -32,11 +32,7 @@ class AdminLoginForm extends Component {
       });
       setTimeout(() => {
         this.setState({ success: null });
-        if (auth.data.type === 'admin') {
-          this.props.history.push('/admin-panel');
-        } else {
-          this.props.history.push('/dashboard/progress');
-        }
+        this.props.history.push('/adminpanel/students');
       }, 1500);
     } catch (err) {
       this.setState({ error: err.response.data });

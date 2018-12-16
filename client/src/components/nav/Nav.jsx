@@ -29,6 +29,7 @@ class NavBar extends Component {
       });
       this.props.dispatch({ type: 'LOGOUT' });
       this.setState({ loggedIn: false, authType: null });
+      this.props.history.push('/');
     } catch (err) {
       alert(err);
     }
@@ -44,7 +45,7 @@ class NavBar extends Component {
         <div className="nav__buttons">
           {this.state.authType === 'admin' ? (
             <React.Fragment>
-              <Link to="/admin-panel" className="nav__button">
+              <Link to="/adminpanel" className="nav__button">
                 Admin Panel
               </Link>
               <div className="nav__button" onClick={this.handleLogout}>

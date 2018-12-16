@@ -1,14 +1,15 @@
 const { Student } = require('./../../models/student');
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-  Student.find({})
-    .then(students => {
-      res.send(students);
-    })
-    .catch(e => {
-      res.sendStatus(400);
-    });
+router.get('/', async (req, res) => {
+  try {
+    const students = await Student.find({})
+      .populate('group')
+      .exec();
+    res.send(students);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 router.post('/', (req, res) => {
@@ -16,7 +17,7 @@ router.post('/', (req, res) => {
     email,
     password,
     name,
-    groupId,
+    group,
     phoneNo,
     registrationNo,
     address
@@ -26,7 +27,7 @@ router.post('/', (req, res) => {
     email,
     password,
     name,
-    groupId,
+    group,
     phoneNo,
     registrationNo,
     address
@@ -57,6 +58,16 @@ router.patch('/specialAuthority/:id', async (req, res) => {
 
     const updatedStudent = await student.save();
     res.send(updatedStudent);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const student = await Student.findByIdAndDelete(req.params.id);
+    console.log(student);
+    res.send(student);
   } catch (err) {
     res.status(400).send(err);
   }

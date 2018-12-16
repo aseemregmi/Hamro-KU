@@ -20,9 +20,10 @@ let StudentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  groupId: {
+  group: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Group'
   },
   phoneNo: {
     type: String,

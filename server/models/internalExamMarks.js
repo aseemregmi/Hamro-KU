@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 
 let InternalExamMarksSchema = new mongoose.Schema({
-  classId: {
+  class: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Class'
   },
-  studentId: {
+  student: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Student'
   },
   Date: {
     type: Date,

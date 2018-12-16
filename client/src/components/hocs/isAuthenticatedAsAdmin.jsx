@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import passAuthProps from './passAuthProps';
 
-const isAuthenticated = ComponentToCheckAuthentication => {
+const isAuthenticatedAsAdmin = ComponentToCheckAuthentication => {
   class NewComponent extends Component {
     state = { auth: null };
 
     static getDerivedStateFromProps(nextProps) {
       return { auth: nextProps.auth };
     }
-
     componentDidMount() {
-      if (!this.state.auth.type === 'admin') {
-        this.props.history.push('/login?type=admin');
+      if (!(this.state.auth && this.state.auth.type === 'admin')) {
+        this.props.history.push('/');
       }
     }
 
@@ -28,4 +27,4 @@ const isAuthenticated = ComponentToCheckAuthentication => {
   return passAuthProps(NewComponent);
 };
 
-export default isAuthenticated;
+export default isAuthenticatedAsAdmin;

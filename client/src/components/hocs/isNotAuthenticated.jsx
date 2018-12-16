@@ -12,7 +12,7 @@ const isNotAuthenticated = ComponentToCheckAuthentication => {
     componentDidMount() {
       if (this.state.auth) {
         if (this.state.auth.type === 'admin') {
-          this.props.history.push('/admin-panel');
+          this.props.history.push('/adminpanel');
         } else {
           this.props.history.push('/dashboard');
         }

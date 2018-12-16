@@ -1,0 +1,39 @@
+.table {
+  margin: 2rem 2rem;
+  font-size: 1.5rem;
+
+  .heads {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    color: $color-white;
+
+    & > * {
+      margin: 0 0.5rem;
+      padding: 0.5rem;
+      background-color: $color-secondary-dark;
+      text-align: center;
+    }
+  }
+
+  .data {
+    margin: 1rem 0 0 0;
+
+    .fields {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+
+      & > * {
+        margin: 0 0.5rem;
+        padding: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      &:nth-child(2n) {
+        & > * {
+          background-color: $color-grey-light-1;
+        }
+      }
+    }
+  }
+}

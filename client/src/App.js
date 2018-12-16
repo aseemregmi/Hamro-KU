@@ -46,11 +46,12 @@ class App extends Component {
                 component={isAuthenticated(Dashboard)}
               />
               <Route
-                path="/admin-panel"
+                exact
+                path="/adminpanel"
                 component={isAuthenticatedAsAdmin(AdminPanel)}
               />
               <Route
-                path="/admin-panel/:options"
+                path="/adminpanel/:option"
                 component={isAuthenticatedAsAdmin(AdminPanel)}
               />
             </Switch>

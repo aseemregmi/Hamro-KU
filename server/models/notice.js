@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 let NoticeSchema = new mongoose.Schema({
-  classId: {
+  class: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Class'
   },
   type: {
     type: String,

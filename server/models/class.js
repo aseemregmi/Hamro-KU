@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
 let ClassSchema = new mongoose.Schema({
-  subjectID: {
+  subject: {
     type: mongoose.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Subject'
   },
   routine: [
     {
@@ -21,13 +22,15 @@ let ClassSchema = new mongoose.Schema({
       }
     }
   ],
-  groupId: {
+  group: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Group'
   },
   teacherId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'Teacher'
   }
 });
 
