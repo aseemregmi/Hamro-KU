@@ -11,22 +11,28 @@ const Table = props => {
         ))}
       </div>
       <div className="data">
-        {props.data.map((student, index) => {
+        {props.data.map((data, index) => {
           if (index > 10) return null;
           return (
             <div
               className="fields"
               onClick={() => {
-                props.handleDataInModal(student);
+                props.handleDataInModal(data);
                 props.handleDisplayModal();
               }}
-              key={student.email}
+              key={data.email}
             >
-              <span className="field">{student.name}</span>
-              <span className="field">{student.email}</span>
-              <span className="field">{student.group.shortForm}</span>
+              <span className="field">{data.name}</span>
+              <span className="field">{data.email}</span>
+              {props.studentTable ? (
+                <span className="field">{data.group.shortForm}</span>
+              ) : null}
+              {props.teacherTable ? (
+                <span className="field">{data.department.name}</span>
+              ) : null}
+
               <span className="field">
-                {student.verified ? 'Verified' : 'Not Verified'}
+                {data.verified ? 'Verified' : 'Not Verified'}
               </span>
             </div>
           );

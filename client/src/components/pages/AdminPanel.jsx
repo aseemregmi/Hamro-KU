@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SideBar from '../adminpanel/SideBar';
 import Students from '../adminpanel/Students';
+import Teachers from '../adminpanel/Teachers';
 
 class AdminPanel extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class AdminPanel extends Component {
         <SideBar />
         <div className="adminpanel__main-section">
           {this.props.match.params.option === 'students' ? <Students /> : null}
+          {this.props.match.params.option === 'teachers' ? <Teachers /> : null}
         </div>
       </div>
     );

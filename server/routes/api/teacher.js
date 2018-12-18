@@ -1,14 +1,15 @@
 const { Teacher } = require('./../../models/teacher');
 const router = require('express').Router();
 
-router.get('/', (req, res) => {
-  Teacher.find({})
-    .then(teachers => {
-      res.send(teachers);
-    })
-    .catch(e => {
-      res.sendStatus(400);
-    });
+router.get('/', async (req, res) => {
+  try {
+    const teachers = await Teacher.find({})
+      .populate('department')
+      .exec();
+    res.send(teachers);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 router.post('/', (req, res) => {
@@ -19,7 +20,7 @@ router.post('/', (req, res) => {
     phoneNo,
     post,
     address,
-    departmentId
+    department
   } = req.body;
 
   const newTeacher = new Teacher({
@@ -29,7 +30,7 @@ router.post('/', (req, res) => {
     phoneNo,
     post,
     address,
-    departmentId
+    department
   });
 
   newTeacher
@@ -43,7 +44,7 @@ router.patch('/verify/:id', async (req, res) => {
     let teacher = await Teacher.findById(req.params.id);
     teacher.verified = !teacher.verified;
 
-    const updatedTeacher = await student.save();
+    const updatedTeacher = await teacher.save();
     res.send(updatedTeacher);
   } catch (err) {
     res.send(err).status(400);
@@ -67,6 +68,15 @@ router.post('/login', async (req, res) => {
     } else {
       throw 'Your email is not registered. Please Sign Up First';
     }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const teacher = await Teacher.findByIdAndDelete(req.params.id);
+    res.send(teacher);
   } catch (err) {
     res.status(400).send(err);
   }

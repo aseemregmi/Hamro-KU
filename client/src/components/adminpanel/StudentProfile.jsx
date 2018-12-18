@@ -7,6 +7,7 @@ const StudentProfile = props => {
       .patch(`/api/students/specialAuthority/${props.student._id}`)
       .then(() => {
         props.resetData();
+        props.handleDisplayModal();
       })
       .catch(err => alert(err));
   }
@@ -16,6 +17,7 @@ const StudentProfile = props => {
       .patch(`/api/students/verify/${props.student._id}`)
       .then(() => {
         props.resetData();
+        props.handleDisplayModal();
       })
       .catch(err => alert(err));
   }

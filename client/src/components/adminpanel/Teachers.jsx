@@ -1,33 +1,41 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Table from './Table';
-import StudentProfile from './StudentProfile';
+import TeacherProfile from './TeacherProfile';
 
-class Students extends Component {
+class Teachers extends Component {
   state = {
-    students: [],
-    studentsToBeDisplayed: [],
-    filterType: ['Verification', 'Group'],
+    teachers: [],
+    teachersToBeDisplayed: [],
+    filterType: ['Verification', 'Department'],
     filterTypeValue: 'Select Filter Type',
     filterFields: [],
     filterFieldValue: 'First Select Filter Type',
     displayModal: false,
-    student: {}
+    teacher: {}
   };
 
   componentDidMount() {
-    this.fetchStudents();
+    this.fetchTeachers();
   }
 
-  fetchStudents = () => {
+  handleDataInModal = teacher => {
+    this.setState({ teacher });
+  };
+
+  handleDisplayModal = () => {
+    this.setState({ displayModal: !this.state.displayModal });
+  };
+
+  fetchTeachers = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get('/api/students')
+        .get('/api/teachers')
         .then(res => {
           this.setState(
             {
-              students: res.data,
-              studentsToBeDisplayed: res.data
+              teachers: res.data,
+              teachersToBeDisplayed: res.data
             },
             () => resolve()
           );
@@ -37,20 +45,18 @@ class Students extends Component {
   };
 
   resetData = () => {
-    this.fetchStudents().then(async () => {
-      if (this.state.filterFieldValue.length <= 15) {
-        await this.handleSubmit();
-      }
-      this.state.studentsToBeDisplayed.forEach(student => {
-        if (student._id === this.state.student._id) {
-          this.setState({ student });
+    this.fetchTeachers().then(async () => {
+      await this.handleSubmit();
+      this.state.teachersToBeDisplayed.forEach(teacher => {
+        if (teacher._id === this.state.teacher._id) {
+          this.setState({ teacher });
         }
       });
     });
   };
 
-  handleDataInModal = student => {
-    this.setState({ student });
+  handleDataInModal = teacher => {
+    this.setState({ teacher });
   };
 
   handleDisplayModal = () => {
@@ -58,36 +64,32 @@ class Students extends Component {
   };
 
   handleSubmit = () => {
-    if (this.state.filterFieldValue.length > 15) {
-      alert('Choose Filter Options Wisely');
-    }
-
     return new Promise((resolve, reject) => {
       switch (this.state.filterTypeValue) {
-        case 'Group':
-          const studentsGroupWise = this.state.students
+        case 'Department':
+          const teachersDepartmentWise = this.state.teachers
             .slice()
             .filter(
-              student => student.group.shortForm === this.state.filterFieldValue
+              teacher => teacher.department.name === this.state.filterFieldValue
             );
-          this.setState({ studentsToBeDisplayed: studentsGroupWise }, () =>
+          this.setState({ teachersToBeDisplayed: teachersDepartmentWise }, () =>
             resolve()
           );
           break;
 
         case 'Verification':
-          const studentsVerificationWise = this.state.students
+          const teachersVerificationWise = this.state.teachers
             .slice()
-            .filter(student => {
+            .filter(teacher => {
               if (this.state.filterFieldValue === 'Verified') {
-                return student.verified;
+                return teacher.verified;
               } else {
-                return !student.verified;
+                return !teacher.verified;
               }
             });
           this.setState(
             {
-              studentsToBeDisplayed: studentsVerificationWise
+              teachersToBeDisplayed: teachersVerificationWise
             },
             () => resolve()
           );
@@ -100,9 +102,9 @@ class Students extends Component {
 
   handleFilterTypeValue = option => {
     switch (option) {
-      case 'Group':
+      case 'Department':
         axios
-          .get('/api/groups')
+          .get('/api/departments')
           .then(res =>
             this.setState({
               filterTypeValue: option,
@@ -130,9 +132,9 @@ class Students extends Component {
     return (
       <div className="students">
         {this.state.displayModal ? (
-          <StudentProfile
+          <TeacherProfile
             handleDisplayModal={this.handleDisplayModal}
-            student={this.state.student}
+            teacher={this.state.teacher}
             resetData={this.resetData}
           />
         ) : null}
@@ -168,14 +170,14 @@ class Students extends Component {
                 <div className="filter-items-container">
                   {this.state.filterFields.map(option => (
                     <span
-                      key={option.shortForm || option}
+                      key={option.name || option}
                       onClick={() => {
                         this.setState({
-                          filterFieldValue: option.shortForm || option
+                          filterFieldValue: option.name || option
                         });
                       }}
                     >
-                      {option.shortForm || option}
+                      {option.name || option}
                     </span>
                   ))}
                 </div>
@@ -187,11 +189,10 @@ class Students extends Component {
             Submit
           </button>
         </div>
-
         <Table
-          headers={['Name', 'Email', 'Group', 'Verified']}
-          studentTable={true}
-          data={this.state.studentsToBeDisplayed}
+          headers={['Name', 'Email', 'Department', 'Verified']}
+          teacherTable={true}
+          data={this.state.teachersToBeDisplayed}
           handleDataInModal={this.handleDataInModal}
           handleDisplayModal={this.handleDisplayModal}
         />
@@ -200,4 +201,4 @@ class Students extends Component {
   }
 }
 
-export default Students;
+export default Teachers;

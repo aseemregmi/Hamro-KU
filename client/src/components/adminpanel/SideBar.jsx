@@ -6,6 +6,7 @@ const SideBar = props => {
     <div className="adminpanel__sidebar">
       <div className="menus">
         <Link to="/adminpanel/students">Students</Link>
+        <Link to="/adminpanel/teachers">Teachers</Link>
       </div>
     </div>
   );

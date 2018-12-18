@@ -35,6 +35,7 @@ const { groupsApi } = require('./routes/api/group');
 const { subjectsApi } = require('./routes/api/subject');
 const { classesApi } = require('./routes/api/class');
 const { teachersApi } = require('./routes/api/teacher');
+const { departmentsApi } = require('./routes/api/department');
 const { adminsApi } = require('./routes/api/admin');
 const { tokensApi } = require('./routes/api/token');
 
@@ -45,6 +46,7 @@ app.use('/api/groups', groupsApi);
 app.use('/api/subjects', subjectsApi);
 app.use('/api/classes', classesApi);
 app.use('/api/teachers', teachersApi);
+app.use('/api/departments', departmentsApi);
 app.use('/api/admins', adminsApi);
 app.use('/api/tokens', tokensApi);
 
