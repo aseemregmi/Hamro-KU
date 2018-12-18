@@ -36,7 +36,9 @@ router.post('/', (req, res) => {
   newStudent
     .save()
     .then(student => res.send(student))
-    .catch(err => res.send(err).status(400));
+    .catch(err => {
+      res.status(400).send(`${err.message}`);
+    });
 });
 
 router.patch('/verify/:id', async (req, res) => {

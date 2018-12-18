@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const { Token } = require('./token');
+const mongooseUniqueValidator = require('mongoose-unique-validator');
 
 let StudentSchema = new mongoose.Schema({
   email: {
@@ -46,6 +47,10 @@ let StudentSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   }
+});
+
+StudentSchema.plugin(mongooseUniqueValidator, {
+  message: 'Error, expected {PATH} to be unique.'
 });
 
 StudentSchema.methods.generateAuthToken = function() {
