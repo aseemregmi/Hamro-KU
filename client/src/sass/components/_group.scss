@@ -1,0 +1,31 @@
+.group {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .heading1 {
+    margin: 4rem 0;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .registered-groups {
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+
+    & > * {
+      padding: 1rem;
+      margin: 0 2rem;
+      cursor: pointer;
+    }
+  }
+}

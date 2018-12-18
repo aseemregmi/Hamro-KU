@@ -4,7 +4,6 @@ const { Department } = require('./../../models/department');
 router.get('/', async (req, res) => {
   try {
     const departments = await Department.find({});
-    console.log(departments);
     res.send(departments);
   } catch (err) {
     res.status(400).send(err);

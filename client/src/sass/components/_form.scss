@@ -5,7 +5,8 @@
   &__form-group {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    max-width: 50rem;
+    min-width: 30rem;
     padding: 1rem;
     margin-bottom: 1rem;
     align-items: center;

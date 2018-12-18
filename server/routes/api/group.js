@@ -11,28 +11,15 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { groupName, year, shortForm, school } = req.body;
   const newGroup = new Group({ groupName, year, shortForm, school });
-
-  newGroup
-    .save()
-    .then(group => {
-      res.send(group);
-    })
-    .catch(err => {
-      res.status(400).send(err);
-    });
-});
-
-router.get('/', (req, res) => {
-  Group.find({})
-    .then(groups => {
-      res.send(groups);
-    })
-    .catch(err => {
-      res.status(400).send(err);
-    });
+  try {
+    const group = await newGroup.save();
+    res.send(group);
+  } catch (err) {
+    res.status(400).send(`${err.errors.shortForm.value} already exists`);
+  }
 });
 
 module.exports = {

@@ -19,7 +19,9 @@ router.post('/', (req, res) => {
   newSubject
     .save()
     .then(subject => res.send(subject))
-    .catch(err => res.status(400).send(err));
+    .catch(err =>
+      res.status(400).send(`${err.errors.subjectCode.value} already exists`)
+    );
 });
 
 module.exports = {

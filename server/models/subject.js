@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongooseUniqueValidator = require('mongoose-unique-validator');
 
 let SubjectSchema = new mongoose.Schema({
   name: {
@@ -14,6 +15,10 @@ let SubjectSchema = new mongoose.Schema({
     type: String,
     required: true
   }
+});
+
+SubjectSchema.plugin(mongooseUniqueValidator, {
+  message: 'Error, expected {PATH} to be unique.'
 });
 
 const Subject = mongoose.model('Subject', SubjectSchema);
