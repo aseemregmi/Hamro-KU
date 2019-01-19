@@ -10,8 +10,22 @@
     margin-bottom: 1rem;
     overflow-y: scroll;
     padding: 1rem;
-
     background-color: rgba($color-white, 0.2);
+
+    .from-text-wrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+
+      span {
+        color: #232323;
+        font-weight: 700;
+        border-bottom: 1px solid #232323;
+        padding-bottom: 3px;
+        margin-bottom: 5px;
+      }
+    }
   }
 
   &__controls {
@@ -25,8 +39,12 @@
       padding: 1.2rem;
       font-size: 1.5rem;
       border: none;
-      flex: 1;
+      flex: 5;
       border-radius: 5px;
+    }
+
+    .submit {
+      flex: 1;
     }
   }
 }

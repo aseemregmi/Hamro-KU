@@ -32,7 +32,9 @@ class StudentDashboard extends Component {
       <div className="dashboard">
         <SideBar student={this.state.student} />
         <div className="dashboard__main-section">
-          {this.props.match.params.option === 'chat-room' ? <ChatRoom /> : null}
+          {this.props.match.params.option === 'chat-room' ? (
+            <ChatRoom student={this.state.student} />
+          ) : null}
           {this.props.match.params.option === 'manage-class-routines' &&
           this.state.student.specialAuthority ? (
             <ManageClassesAndRoutines student={this.state.student} />

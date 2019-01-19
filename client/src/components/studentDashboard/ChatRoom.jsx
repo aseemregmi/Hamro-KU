@@ -7,27 +7,38 @@ class ChatRoom extends Component {
 
     this.state = {
       message: '',
-      messages: ['Welcome to Chat Room']
+      messages: []
     };
 
     this.messages = React.createRef();
+
+    this.socket = socketIOClient('http://localhost:5000');
+
+    this.socket.on('connect', () => {
+      this.socket.emit('join', props.student, function(err) {});
+    });
   }
 
   handleChange = e => {
     this.setState({ message: e.target.value });
   };
 
+  addMessageToState = message => {
+    if (message.text) {
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          { text: message.text, from: message.from }
+        ]
+      });
+      this.messages.current.scrollTop = this.messages.current.scrollHeight;
+    }
+  };
+
   componentDidMount() {
-    this.socket = socketIOClient('http://localhost:5000');
-
-    this.socket.on('connection', () => {
-      console.log('Connected');
-    });
-
     this.socket.on('newMessageFromServer', message => {
-      this.setState({ messages: [...this.state.messages, message.text] });
-      const node = this.messages.current;
-      node.scrollTop = node.scrollHeight;
+      console.log(message);
+      this.addMessageToState(message);
     });
   }
 
@@ -36,8 +47,13 @@ class ChatRoom extends Component {
 
     this.socket.emit(
       'newMessageFromClient',
-      { text: this.state.message },
+      {
+        text: this.state.message,
+        to: this.props.student.group._id,
+        from: this.props.student.name
+      },
       () => {
+        this.addMessageToState({ from: 'You', text: this.state.message });
         this.setState({ message: '' });
       }
     );
@@ -50,14 +66,17 @@ class ChatRoom extends Component {
         <div className="chat-room__messages" ref={this.messages}>
           {this.state.messages.map(message => {
             return (
-              <React.Fragment key={++abc}>
-                <h3>{message}</h3>
+              <div key={++abc} className="from-text-wrapper">
+                <span>
+                  <i>{message.from}</i>
+                </span>
+                <h3>{message.text}</h3>
                 <br />
-              </React.Fragment>
+              </div>
             );
           })}
         </div>
-        <form className="form chat-room__controls" onSubmit={this.handleSubmit}>
+        <form className="chat-room__controls" onSubmit={this.handleSubmit}>
           <input
             className="messages"
             placeholder="Enter Your Message Here"
@@ -69,7 +88,7 @@ class ChatRoom extends Component {
             type="submit"
             name="message"
             value="Send"
-            className="btn btn--submit btn--primary"
+            className="submit btn btn--submit btn--primary"
           />
         </form>
       </div>
