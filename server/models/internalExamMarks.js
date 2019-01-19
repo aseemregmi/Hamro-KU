@@ -11,15 +11,15 @@ let InternalExamMarksSchema = new mongoose.Schema({
     required: true,
     ref: 'Student'
   },
-  Date: {
-    type: Date,
-    required: true
-  },
   obtainedMarks: {
     type: Number,
     required: true
   },
   fullMarks: {
+    type: Number,
+    required: true
+  },
+  examNo: {
     type: Number,
     required: true
   }

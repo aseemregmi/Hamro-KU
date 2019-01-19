@@ -3,6 +3,29 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const socketIo = require('socket.io');
+const multer = require('multer');
+
+// Set Storage Engine
+const storage = multer.diskStorage({
+  destination: path.join('./public/uploads/'),
+  filename: function(req, file, callback) {
+    callback(
+      null,
+      file.originalname.replace(path.extname(file.originalname), '') +
+        '-' +
+        Date.now() +
+        path.extname(file.originalname)
+    );
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1000000 },
+  fileFilter: function(req, file, callback) {
+    callback(null, true);
+  }
+}).single('file');
 
 // Init express app
 const app = express();
@@ -39,6 +62,7 @@ const { departmentsApi } = require('./routes/api/department');
 const { routinesApi } = require('./routes/api/routine');
 const { adminsApi } = require('./routes/api/admin');
 const { tokensApi } = require('./routes/api/token');
+const { notesApi } = require('./routes/api/note');
 
 // Setup routes
 app.use('/api/kunewsandevents', kuNewsAndEvents);
@@ -51,6 +75,34 @@ app.use('/api/departments', departmentsApi);
 app.use('/api/routines', routinesApi);
 app.use('/api/admins', adminsApi);
 app.use('/api/tokens', tokensApi);
+app.use('/api/notes', notesApi);
+
+app.post('/fileupload', (req, res) => {
+  upload(req, res, err => {
+    if (err) {
+      res.render('index', {
+        msg: err
+      });
+    } else {
+      if (!req.file) {
+        res.render('index', {
+          msg: 'Error No File Selected'
+        });
+      } else {
+        res.send({
+          data: {
+            msg: 'File Uploaded',
+            file: `uploads/${req.file.filename}`,
+            link: `http://localhost:5000/uploads/${req.file.filename}`,
+            type: req.file.mimeType
+          },
+          success: true,
+          status: 200
+        });
+      }
+    }
+  });
+});
 
 // React should be serve only at the end so that routes will not me mismatched
 app.get('*', (req, res) => {

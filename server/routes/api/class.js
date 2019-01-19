@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
         { path: 'routine' }
       ])
       .exec();
-    console.log(classes);
     res.send(classes);
   } catch (err) {
     res.status(400).send(err);

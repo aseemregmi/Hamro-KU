@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 const Context = React.createContext();
 
@@ -12,6 +13,10 @@ const reducer = (state, action) => {
 
     case 'LOGOUT':
       localStorage.removeItem('auth');
+      axios
+        .post('/api/tokens/delete', { token: state.auth.token })
+        .then(res => console.log('Logged Out Successfully'))
+        .catch(err => console.log(err));
       return {
         auth: null
       };

@@ -46,7 +46,19 @@ let StudentSchema = new mongoose.Schema({
   specialAuthority: {
     type: Boolean,
     default: false
-  }
+  },
+  attendance: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Attendance'
+    }
+  ],
+  internalExamMarks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'InternalExamMarks'
+    }
+  ]
 });
 
 StudentSchema.plugin(mongooseUniqueValidator, {

@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SideBar from './SideBar';
 import MyClasses from './MyClasses';
+import UploadNotes from './UploadNotes';
+import AddInternalMarks from './AddInteralMarks';
+import ManageAttendance from './ManageAttendance';
+import StudentRecord from './StudentRecord';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -30,6 +34,18 @@ class Dashboard extends Component {
         <div className="dashboard__main-section">
           {this.props.match.params.option === 'classes' ? (
             <MyClasses teacher={this.state.teacher} />
+          ) : null}
+          {this.props.match.params.option === 'internal-marks' ? (
+            <AddInternalMarks teacher={this.state.teacher} />
+          ) : null}
+          {this.props.match.params.option === 'attendance' ? (
+            <ManageAttendance teacher={this.state.teacher} />
+          ) : null}
+          {this.props.match.params.option === 'student' ? (
+            <StudentRecord teacher={this.state.teacher} />
+          ) : null}
+          {this.props.match.params.option === 'notes' ? (
+            <UploadNotes teacher={this.state.teacher} />
           ) : null}
         </div>
       </div>
