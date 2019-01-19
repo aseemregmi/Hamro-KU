@@ -4,7 +4,10 @@ const { Note } = require('./../../models/notes');
 router.get('/', async (req, res) => {
   try {
     const notes = await Note.find(req.query)
-      .populate({ path: 'classId', populate: { path: 'group' } })
+      .populate({
+        path: 'classId',
+        populate: { path: 'group', path: 'teacher' }
+      })
       .exec();
     res.send(notes);
   } catch (err) {

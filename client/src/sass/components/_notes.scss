@@ -1,0 +1,26 @@
+.notes {
+  padding: 20px;
+
+  .selectclass2 {
+    width: 50%;
+    margin-top: 20px;
+  }
+
+  .notesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 30px;
+
+    .noteinfo {
+      padding: 10px;
+    }
+
+    & > * {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-size: 1.5rem;
+    }
+  }
+}

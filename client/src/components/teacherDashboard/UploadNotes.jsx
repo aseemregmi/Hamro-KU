@@ -116,7 +116,7 @@ class UploadNotes extends Component {
               onChange={this.handleNotesUpload}
             />
             <button onClick={() => this.uploadButtonRef.current.click()}>
-              Upload Note For This Subject
+              Upload Note For This Class
             </button>
           </div>
         </form>
@@ -142,9 +142,7 @@ class UploadNotes extends Component {
             {this.state.notesToBeDisplayed.length > 0 ? (
               this.state.notesToBeDisplayed.map(notes => (
                 <div key={notes.noteUrl}>
-                  <span className="noteinfo">
-                    {notes.name} / {notes.classId.group.shortForm}
-                  </span>
+                  <span className="noteinfo">{notes.name}</span>
                   <a
                     rel="noopener noreferrer"
                     target="_blank"

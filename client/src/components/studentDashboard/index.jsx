@@ -3,6 +3,8 @@ import axios from 'axios';
 import SideBar from './SideBar';
 import ChatRoom from './ChatRoom';
 import ManageClassesAndRoutines from './ManageClassesAndRoutines';
+import Classes from './Classes';
+import Notes from './Notes';
 
 class StudentDashboard extends Component {
   constructor(props) {
@@ -34,6 +36,12 @@ class StudentDashboard extends Component {
         <div className="dashboard__main-section">
           {this.props.match.params.option === 'chat-room' ? (
             <ChatRoom student={this.state.student} />
+          ) : null}
+          {this.props.match.params.option === 'classes' ? (
+            <Classes student={this.state.student} />
+          ) : null}
+          {this.props.match.params.option === 'notes' ? (
+            <Notes student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'manage-class-routines' &&
           this.state.student.specialAuthority ? (

@@ -19,7 +19,7 @@ const SideBar = props => {
       <div className="menus">
         <Link to="/dashboard/progress">My Progress</Link>
         <Link to="/dashboard/notes">Notes</Link>
-        <Link to="/dashboard/teachers">Classes</Link>
+        <Link to="/dashboard/classes">Classes</Link>
         <Link to="/dashboard/notice">Notices</Link>
         <Link to="/dashboard/chat-room">Class Chat Room</Link>
         {props.student.specialAuthority ? (

@@ -41,7 +41,7 @@ class MyClasses extends Component {
               </span>
               <div className="routinescontainer">
                 {singleClass.routine.map(routine => (
-                  <span className="singleroutine">
+                  <span key={JSON.stringify(routine)} className="singleroutine">
                     {this.getDayFromNumber(routine.day)} / {routine.startTime}
                   </span>
                 ))}

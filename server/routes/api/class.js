@@ -5,7 +5,6 @@ const { Routine } = require('./../../models/routine');
 router.get('/', async (req, res) => {
   try {
     const classes = await Class.find(req.query)
-      // 'subject group teacher routine'
       .populate([
         { path: 'subject' },
         { path: 'group' },
