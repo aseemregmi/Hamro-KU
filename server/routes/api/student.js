@@ -1,5 +1,6 @@
 const { Student } = require('./../../models/student');
 const { InternalExamMarks } = require('./../../models/internalExamMarks');
+const { Attendance } = require('./../../models/attendance');
 const router = require('express').Router();
 
 router.get('/', async (req, res) => {
@@ -34,6 +35,32 @@ router.post('/internalexammarks', async (req, res) => {
     );
     res.send('Successfull');
   } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+router.post('/attendance', async (req, res) => {
+  try {
+    const { studentWithAttendance, date, classId } = req.body;
+
+    await Promise.all(
+      studentWithAttendance.map(async studentwattendance => {
+        const student = await Student.findById(studentwattendance._id);
+
+        const attendance = await new Attendance({
+          date,
+          status: studentwattendance.status,
+          class: classId,
+          student: student._id
+        }).save();
+        student.attendance.push(attendance._id);
+        await student.save();
+      })
+    );
+
+    res.send('Successfull');
+  } catch (err) {
+    console.log(err);
     res.status(400).send(err);
   }
 });

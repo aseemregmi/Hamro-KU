@@ -11,11 +11,11 @@ let AttendanceSchema = new mongoose.Schema({
     required: true,
     ref: 'Class'
   },
-  Date: {
+  date: {
     type: Date,
     required: true
   },
-  Status: {
+  status: {
     type: Boolean,
     required: true
   }

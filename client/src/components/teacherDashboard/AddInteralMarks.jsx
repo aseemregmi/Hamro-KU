@@ -18,7 +18,6 @@ class AddInternalMarks extends Component {
       axios
         .get(`/api/students/?group=${e.target.value}`)
         .then(res => {
-          console.log(res.data);
           let studentIdWithMarks = [];
           res.data.forEach(student => {
             studentIdWithMarks.push({

@@ -64,6 +64,7 @@ const { routinesApi } = require('./routes/api/routine');
 const { adminsApi } = require('./routes/api/admin');
 const { tokensApi } = require('./routes/api/token');
 const { notesApi } = require('./routes/api/note');
+const { attendanceApi } = require('./routes/api/attendance');
 
 // Setup routes
 app.use('/api/kunewsandevents', kuNewsAndEvents);
@@ -77,6 +78,7 @@ app.use('/api/routines', routinesApi);
 app.use('/api/admins', adminsApi);
 app.use('/api/tokens', tokensApi);
 app.use('/api/notes', notesApi);
+app.use('/api/attendances', attendanceApi);
 
 app.post('/fileupload', (req, res) => {
   upload(req, res, err => {

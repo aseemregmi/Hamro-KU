@@ -95,7 +95,6 @@ class UploadNotes extends Component {
           />
           <select
             name="classId"
-            name="classId"
             value={this.state.classId}
             onChange={this.onChange}
           >
