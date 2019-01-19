@@ -138,7 +138,6 @@ class Students extends Component {
         ) : null}
         <div className="students__filter-container">
           <span>Filter By : </span>
-
           <div className="filter-type">
             {this.state.filterTypeValue}
             <div className="options">

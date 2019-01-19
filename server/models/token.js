@@ -12,6 +12,9 @@ let TokenSchema = new mongoose.Schema({
   token: {
     type: String,
     required: true
+  },
+  userType: {
+    type: String
   }
 });
 

@@ -1,25 +1,17 @@
 const mongoose = require('mongoose');
 
+const date = new Date().getDay();
+
 let ClassSchema = new mongoose.Schema({
   subject: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'Subject'
   },
   routine: [
     {
-      day: {
-        type: Number,
-        required: true
-      },
-      startTime: {
-        type: Number,
-        required: true
-      },
-      duration: {
-        type: Number,
-        required: true
-      }
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Routine'
     }
   ],
   group: {
@@ -27,7 +19,7 @@ let ClassSchema = new mongoose.Schema({
     required: true,
     ref: 'Group'
   },
-  teacherId: {
+  teacher: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'Teacher'

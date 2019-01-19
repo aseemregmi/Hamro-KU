@@ -48,9 +48,7 @@ class Map extends Component {
     clearInterval(this.interval);
   }
 
-  handleMarkerClick = e => {
-    console.log('Hi');
-  };
+  handleMarkerClick = e => {};
 
   render() {
     return (

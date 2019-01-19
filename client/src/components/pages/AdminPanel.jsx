@@ -4,6 +4,7 @@ import Students from '../adminpanel/Students';
 import Teachers from '../adminpanel/Teachers';
 import Subject from '../adminpanel/Subject';
 import Group from '../adminpanel/Group';
+import Departments from '../adminpanel/Departments';
 
 class AdminPanel extends Component {
   constructor(props) {
@@ -26,6 +27,9 @@ class AdminPanel extends Component {
           {this.props.match.params.option === 'teachers' ? <Teachers /> : null}
           {this.props.match.params.option === 'subjects' ? <Subject /> : null}
           {this.props.match.params.option === 'groups' ? <Group /> : null}
+          {this.props.match.params.option === 'departments' ? (
+            <Departments />
+          ) : null}
         </div>
       </div>
     );

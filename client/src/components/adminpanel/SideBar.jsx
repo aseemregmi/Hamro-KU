@@ -9,6 +9,7 @@ const SideBar = props => {
         <Link to="/adminpanel/teachers">Teachers</Link>
         <Link to="/adminpanel/subjects">Subject</Link>
         <Link to="/adminpanel/groups">Group</Link>
+        <Link to="/adminpanel/departments">Departments</Link>
       </div>
     </div>
   );

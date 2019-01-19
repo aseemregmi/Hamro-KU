@@ -3,15 +3,33 @@ import passAuthProps from './passAuthProps';
 
 const isAuthenticated = ComponentToCheckAuthentication => {
   class NewComponent extends Component {
-    state = { auth: null };
+    constructor(props) {
+      super(props);
+      this.state = {
+        auth: props.auth
+      };
+    }
 
     static getDerivedStateFromProps(nextProps) {
-      return { auth: nextProps.auth };
+      if (!nextProps.auth) {
+        nextProps.history.push('/login?type=student');
+      } else {
+        if (nextProps.auth.type === 'admin') {
+          nextProps.history.push('/login?type=student');
+        }
+      }
+      return {
+        auth: nextProps.auth
+      };
     }
 
     componentDidMount() {
-      if (!this.state.auth || this.state.auth.type === 'admin') {
+      if (!this.props.auth) {
         this.props.history.push('/login?type=student');
+      } else {
+        if (this.props.auth.type === 'admin') {
+          this.props.history.push('/login?type=student');
+        }
       }
     }
 
@@ -25,6 +43,7 @@ const isAuthenticated = ComponentToCheckAuthentication => {
       );
     }
   }
+
   return passAuthProps(NewComponent);
 };
 

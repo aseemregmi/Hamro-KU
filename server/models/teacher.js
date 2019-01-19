@@ -55,7 +55,12 @@ TeacherSchema.methods.generateAuthToken = function() {
   return new Promise(async (resolve, reject) => {
     try {
       const token = await jwt.sign({ _id: this._id }, 'SANA').toString();
-      const newToken = new Token({ userId: this._id, type: 'auth', token });
+      const newToken = new Token({
+        userId: this._id,
+        type: 'auth',
+        token,
+        userType: 'teacher'
+      });
       const newTokenInDB = await newToken.save();
       resolve(newTokenInDB);
     } catch (err) {

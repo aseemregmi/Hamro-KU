@@ -1,0 +1,34 @@
+.myclasses {
+  padding: 20px 30px;
+
+  .classesContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+
+    .eachClass {
+      padding: 20px;
+      border-radius: 10px;
+      background-color: $color-grey-light-1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+
+      .routinescontainer {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 10px;
+
+        .singleroutine {
+          background-color: #fafafa;
+          padding: 10px;
+          border: 1px solid white;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}

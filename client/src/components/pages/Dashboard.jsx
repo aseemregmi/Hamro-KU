@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SideBar from '../dashboard/SideBar';
-import ChatRoom from '../dashboard/ChatRoom';
+import StudentDashboard from './../studentDashboard';
+import TeacherDashboard from './../teacherDashboard';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -15,14 +15,19 @@ class Dashboard extends Component {
   }
 
   render() {
-    return (
-      <div className="dashboard">
-        <SideBar name="Aseem Regmi" />
-        <div className="dashboard__main-section">
-          {this.props.match.params.option === 'chat-room' ? <ChatRoom /> : null}
-        </div>
-      </div>
-    );
+    if (this.props.auth) {
+      if (this.props.auth.userType === 'student') {
+        return <StudentDashboard {...this.props} />;
+      }
+
+      if (this.props.auth.userType === 'teacher') {
+        return <TeacherDashboard {...this.props} />;
+      }
+    } else {
+      return null;
+    }
+
+    return null;
   }
 }
 

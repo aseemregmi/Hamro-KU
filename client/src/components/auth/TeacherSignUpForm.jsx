@@ -61,7 +61,16 @@ class TeacherSignupForm extends Component {
             'You successfully Signed Up. Please wait till we verify your account'
         });
         setTimeout(() => {
-          this.setState({ success: null });
+          this.setState({
+            success: null,
+            name: '',
+            email: '',
+            password: '',
+            phoneNo: '',
+            address: '',
+            department: {},
+            post: ''
+          });
         }, 2000);
       })
       .catch(res => {

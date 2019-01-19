@@ -21,7 +21,6 @@ class TeacherLoginForm extends Component {
     e.preventDefault();
     try {
       const auth = await axios.post('/api/teachers/login', { email, password });
-      console.log(auth.data);
       dispatch({ type: 'LOGIN', payload: auth.data });
       this.setState({
         success:

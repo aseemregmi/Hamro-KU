@@ -18,7 +18,10 @@ class NavBar extends Component {
         authType
       };
     } else {
-      return {};
+      return {
+        loggedIn: false,
+        authType: null
+      };
     }
   }
 
@@ -27,10 +30,10 @@ class NavBar extends Component {
       await axios.post('/api/tokens/delete', {
         token: this.props.auth.token
       });
+      // this.props.history.push('/');
       this.props.dispatch({ type: 'LOGOUT' });
-      this.setState({ loggedIn: false, authType: null });
-      this.props.history.push('/');
     } catch (err) {
+      console.log(err);
       alert(err);
     }
   };
@@ -55,21 +58,9 @@ class NavBar extends Component {
           ) : null}
           {this.state.loggedIn && this.state.authType !== 'admin' ? (
             <React.Fragment>
-              <Link to="/me" className="nav__button">
-                Profile
-              </Link>
               <Link to="/dashboard" className="nav__button">
                 Dashboard
               </Link>
-              <div className="nav__button">
-                Notifications
-                <div className="nav__button__contents">
-                  <ul>
-                    <li>He liked your post</li>
-                    <li>He is awesome</li>
-                  </ul>
-                </div>
-              </div>
               <div className="nav__button" onClick={this.handleLogout}>
                 Logout
               </div>
