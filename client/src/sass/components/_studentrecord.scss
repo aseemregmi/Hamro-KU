@@ -1,0 +1,43 @@
+.studentrecord {
+  padding: 10px;
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 30px;
+    margin: 30px;
+  }
+
+  .recordWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-gap: 30px;
+    margin: 30px;
+
+    & > * {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+
+  .h2 {
+    font-size: 1.5rem;
+    color: $color-primary-dark;
+  }
+
+  .internalExamMarkWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+
+    .internalExamMark {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+  }
+}
