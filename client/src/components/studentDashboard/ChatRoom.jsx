@@ -35,9 +35,20 @@ class ChatRoom extends Component {
     }
   };
 
+  componentWillUnmount() {
+    this.socket.emit(
+      'end',
+      {
+        name: this.props.student.name,
+        to: this.props.student.group._id,
+        from: this.props.student.name
+      },
+      () => {}
+    );
+  }
+
   componentDidMount() {
     this.socket.on('newMessageFromServer', message => {
-      console.log(message);
       this.addMessageToState(message);
     });
   }

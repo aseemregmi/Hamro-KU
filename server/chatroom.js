@@ -16,6 +16,15 @@ io.on('connection', socket => {
     });
   });
 
+  socket.on('end', (message, callback) => {
+    socket.broadcast.to(message.to).emit('newMessageFromServer', {
+      from: 'server',
+      text: message.name + ' has left'
+    });
+    socket.disconnect(true);
+    callback();
+  });
+
   socket.on('newMessageFromClient', (message, callback) => {
     callback();
     socket.broadcast.to(message.to).emit('newMessageFromServer', {

@@ -1,0 +1,36 @@
+.notice {
+  padding: 20px;
+
+  .selectClassWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+
+    select {
+      width: 400px;
+    }
+  }
+
+  .noticesWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px;
+    margin: 50px;
+
+    .noticeWrapper {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+
+      & > * {
+        margin: 10px 0;
+      }
+    }
+  }
+}

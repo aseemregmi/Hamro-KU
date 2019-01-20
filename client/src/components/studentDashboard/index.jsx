@@ -5,6 +5,7 @@ import ChatRoom from './ChatRoom';
 import ManageClassesAndRoutines from './ManageClassesAndRoutines';
 import Classes from './Classes';
 import Notes from './Notes';
+import Notices from './Notices';
 
 class StudentDashboard extends Component {
   constructor(props) {
@@ -42,6 +43,9 @@ class StudentDashboard extends Component {
           ) : null}
           {this.props.match.params.option === 'notes' ? (
             <Notes student={this.state.student} />
+          ) : null}
+          {this.props.match.params.option === 'notice' ? (
+            <Notices student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'manage-class-routines' &&
           this.state.student.specialAuthority ? (

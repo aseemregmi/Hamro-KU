@@ -36,7 +36,6 @@ class Classes extends Component {
             ? classes.map(singleClass => {
                 return (
                   <div
-                    onClick={() => this.handleModal(singleClass)}
                     key={singleClass.subject.subjectCode}
                     className="currentclass"
                   >

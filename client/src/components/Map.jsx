@@ -22,30 +22,29 @@ class Map extends Component {
   }
 
   componentDidMount() {
-    getCurrentPosition().then(position => {
-      this.setState({
-        viewport: {
-          latitude: position.latitude,
-          longitude: position.longitude,
-          zoom: 17
-        }
-      });
-    });
-
-    this.interval = setInterval(() => {
-      getCurrentPosition().then(position => {
-        this.setState({
-          position: {
-            latitude: position.latitude,
-            longitude: position.longitude
-          }
-        });
-      });
-    }, 1000);
+    // getCurrentPosition().then(position => {
+    //   this.setState({
+    //     viewport: {
+    //       latitude: position.latitude,
+    //       longitude: position.longitude,
+    //       zoom: 17
+    //     }
+    //   });
+    // });
+    // this.interval = setInterval(() => {
+    //   getCurrentPosition().then(position => {
+    //     this.setState({
+    //       position: {
+    //         latitude: position.latitude,
+    //         longitude: position.longitude
+    //       }
+    //     });
+    //   });
+    // }, 1000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
+    // clearInterval(this.interval);
   }
 
   handleMarkerClick = e => {};
