@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
-// Require database
 mongoose.Promise = global.Promise;
 
+let mongoURI = '';
+
+if (process.env.NODE_ENV) {
+  mongoURI = 'mongodb://aseem:aseem123@ds127704.mlab.com:27704/hamroku';
+} else {
+  mongoURI = 'mongodb://localhost/HamroKU';
+}
+
 mongoose.connect(
-  'mongodb://localhost/HamroKU',
+  mongoURI,
   { useNewUrlParser: true },
   error => {
     if (error) {
