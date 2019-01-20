@@ -6,6 +6,7 @@ import ManageClassesAndRoutines from './ManageClassesAndRoutines';
 import Classes from './Classes';
 import Notes from './Notes';
 import Notices from './Notices';
+import MyProgress from './MyProgress';
 
 class StudentDashboard extends Component {
   constructor(props) {
@@ -46,6 +47,9 @@ class StudentDashboard extends Component {
           ) : null}
           {this.props.match.params.option === 'notice' ? (
             <Notices student={this.state.student} />
+          ) : null}
+          {this.props.match.params.option === 'progress' ? (
+            <MyProgress student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'manage-class-routines' &&
           this.state.student.specialAuthority ? (

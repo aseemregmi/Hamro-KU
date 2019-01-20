@@ -14,6 +14,33 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/withalldata', async (req, res) => {
+  try {
+    const student = await Student.findById(req.query._id)
+      .populate([
+        {
+          path: 'attendance',
+          populate: {
+            path: 'class',
+            populate: [{ path: 'subject' }, { path: 'teacher' }]
+          }
+        },
+        {
+          path: 'internalExamMarks',
+          populate: {
+            path: 'class',
+            populate: [{ path: 'subject' }, { path: 'teacher' }]
+          }
+        }
+      ])
+      .exec();
+
+    res.send(student);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 router.post('/internalexammarks', async (req, res) => {
   try {
     const { examNo, studentIdWithMarks, fullMarks, classId } = req.body;

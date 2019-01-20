@@ -42,9 +42,7 @@ class Notices extends Component {
             {this.state.classes.length > 0
               ? this.state.classes.map(singleClass => (
                   <option value={singleClass._id} key={singleClass._id}>
-                    {' '}
-                    {singleClass.subject.subjectCode} /{' '}
-                    {singleClass.group.shortForm}{' '}
+                    {singleClass.subject.subjectCode}
                   </option>
                 ))
               : null}
