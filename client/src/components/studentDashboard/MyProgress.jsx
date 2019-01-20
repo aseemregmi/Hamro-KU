@@ -114,6 +114,24 @@ class MyProgress extends Component {
       .get(`/api/classes/?group=${this.props.student.group._id}`)
       .then(res =>
         this.setState({ classes: res.data }, () => {
+          let columnChartAttendanceSeries = this.getNoOfExamsHeldTillNow().map(
+            (data, index) => {
+              return {
+                name: `Exam ${index + 1}`,
+                data: this.state.classes.map(singleClass =>
+                  this.getObtainedMarks(singleClass._id, index + 1)
+                )
+              };
+            }
+          );
+
+          if (
+            columnChartAttendanceSeries === undefined ||
+            columnChartAttendanceSeries.length == 0
+          ) {
+            columnChartAttendanceSeries = [{ name: 'Exam 1', data: [] }];
+          }
+
           this.setState({
             columnChartAttendanceSeries: [
               {
@@ -135,16 +153,7 @@ class MyProgress extends Component {
                 )
               }
             ],
-            columnChartInternalExamMarksSeries: this.getNoOfExamsHeldTillNow().map(
-              (data, index) => {
-                return {
-                  name: `Exam ${index + 1}`,
-                  data: this.state.classes.map(singleClass =>
-                    this.getObtainedMarks(singleClass._id, index + 1)
-                  )
-                };
-              }
-            ),
+            columnChartInternalExamMarksSeries: columnChartAttendanceSeries,
             columnChartAttendanceOptions: {
               plotOptions: {
                 bar: {
