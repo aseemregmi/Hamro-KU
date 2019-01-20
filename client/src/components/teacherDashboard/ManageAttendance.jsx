@@ -115,13 +115,16 @@ class ManageAttendance extends Component {
                   ))
                 : null}
             </select>
-            <input
-              type="date"
-              name="date"
-              value={this.state.date}
-              onChange={this.handleChange}
-              required
-            />
+            <div>
+              <label style={{ fontSize: '1.5rem' }}>Enter Date of Class</label>
+              <input
+                type="date"
+                name="date"
+                value={this.state.date}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="attendanceInputWrapper">
             {this.state.studentWithAttendance.length > 0

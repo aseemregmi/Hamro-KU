@@ -6,6 +6,7 @@ import UploadNotes from './UploadNotes';
 import AddInternalMarks from './AddInteralMarks';
 import ManageAttendance from './ManageAttendance';
 import StudentRecord from './StudentRecord';
+import SendNotice from './SendNotice';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -46,6 +47,9 @@ class Dashboard extends Component {
           ) : null}
           {this.props.match.params.option === 'notes' ? (
             <UploadNotes teacher={this.state.teacher} />
+          ) : null}
+          {this.props.match.params.option === 'notice' ? (
+            <SendNotice teacher={this.state.teacher} />
           ) : null}
         </div>
       </div>

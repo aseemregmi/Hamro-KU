@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
   try {
     const attendances = await Attendance.find(req.query).populate([
       { path: 'student' },
-      { path: 'class' }
+      { path: 'class', populate: { path: 'group' } }
     ]);
 
     res.send(attendances);

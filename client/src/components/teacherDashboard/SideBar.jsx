@@ -17,10 +17,11 @@ const SideBar = props => {
       </div>
       <div className="menus">
         <Link to="/dashboard/classes">My Classes</Link>
+        <Link to="/dashboard/notice">Send Notice</Link>
+        <Link to="/dashboard/student">Student Record</Link>
         <Link to="/dashboard/notes">Upload Notes</Link>
         <Link to="/dashboard/internal-marks">Add Internal Marks</Link>
         <Link to="/dashboard/attendance">Manage Attendance</Link>
-        <Link to="/dashboard/student">Student Record</Link>
       </div>
     </div>
   );

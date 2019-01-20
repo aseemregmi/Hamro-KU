@@ -65,6 +65,8 @@ const { adminsApi } = require('./routes/api/admin');
 const { tokensApi } = require('./routes/api/token');
 const { notesApi } = require('./routes/api/note');
 const { attendanceApi } = require('./routes/api/attendance');
+const { internalExamMarksApi } = require('./routes/api/internalExamMarks');
+const { noticeApi } = require('./routes/api/notice');
 
 // Setup routes
 app.use('/api/kunewsandevents', kuNewsAndEvents);
@@ -79,6 +81,8 @@ app.use('/api/admins', adminsApi);
 app.use('/api/tokens', tokensApi);
 app.use('/api/notes', notesApi);
 app.use('/api/attendances', attendanceApi);
+app.use('/api/internalExamMarks', internalExamMarksApi);
+app.use('/api/notices', noticeApi);
 
 app.post('/fileupload', (req, res) => {
   upload(req, res, err => {

@@ -6,11 +6,15 @@ let NoticeSchema = new mongoose.Schema({
     required: true,
     ref: 'Class'
   },
-  type: {
+  body: {
     type: String,
     required: true
   },
   noticeDate: {
+    type: Date,
+    required: true
+  },
+  noticeDeadline: {
     type: Date,
     required: true
   }

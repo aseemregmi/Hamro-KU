@@ -1,0 +1,64 @@
+.sendnotice {
+  padding: 20px;
+
+  form {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    & > * {
+      margin: 20px 0;
+      width: 100%;
+    }
+
+    label {
+      font-size: 1.5rem;
+      position: relative;
+      top: -5px;
+    }
+
+    input {
+      border: 1px solid #f1f1f1;
+      padding: 5px 10px;
+      border-radius: 100px;
+    }
+  }
+
+  .selectClassWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+
+    select {
+      width: 400px;
+    }
+  }
+
+  .noticesWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 30px;
+    margin: 50px;
+
+    .noticeWrapper {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      padding: 20px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+
+      & > * {
+        margin: 10px 0;
+      }
+    }
+  }
+}
