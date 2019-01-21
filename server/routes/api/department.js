@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { Department } = require('./../../models/department');
+const { isAuthenticatedAsAdmin } = require('./../../middlewares');
 
 router.get('/', async (req, res) => {
   try {
@@ -10,7 +11,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+// Only Admins Are Allowed
+router.post('/', isAuthenticatedAsAdmin, async (req, res) => {
   const { name, description, lattitude, longitude } = req.body;
   try {
     const newDepartment = new Department({

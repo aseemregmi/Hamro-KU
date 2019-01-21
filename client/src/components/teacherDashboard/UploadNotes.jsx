@@ -16,9 +16,13 @@ class UploadNotes extends Component {
   uploadButtonRef = React.createRef();
 
   componentDidMount() {
-    axios.get(`/api/classes/?teacher=${this.props.teacher._id}`).then(res => {
-      this.setState({ classes: res.data });
-    });
+    axios
+      .get(`/api/classes/?teacher=${this.props.teacher._id}`, {
+        headers: { token: this.props.token }
+      })
+      .then(res => {
+        this.setState({ classes: res.data });
+      });
   }
 
   handleNotesUpload = e => {
@@ -27,7 +31,7 @@ class UploadNotes extends Component {
       setTimeout(() => {
         this.setState({ error: null });
       }, 2000);
-    } else if (e.target.files[0].fileSize >= 25000000) {
+    } else if (e.target.files[0].size >= 25000000) {
       this.setState({ error: 'File should be smaller than 25 MB' });
       setTimeout(() => {
         this.setState({ error: null });
@@ -37,6 +41,7 @@ class UploadNotes extends Component {
       data.append('file', e.target.files[0]);
       axios
         .post('/fileupload', data, {
+          headers: { token: this.props.token },
           onUploadProgress: progressEvent => {
             this.setState({
               uploadedPercentage: Math.round(
@@ -49,11 +54,17 @@ class UploadNotes extends Component {
           this.setState({ uploadedPercentage: null });
           let noteUrl = res.data.data.link;
           axios
-            .post('/api/notes', {
-              noteUrl,
-              name: this.state.name,
-              classId: this.state.classId
-            })
+            .post(
+              '/api/notes',
+              {
+                noteUrl,
+                name: this.state.name,
+                classId: this.state.classId
+              },
+              {
+                headers: { token: this.props.token }
+              }
+            )
             .then(res => {
               this.setState({
                 success: 'Successfully Uploaded Note',
@@ -84,7 +95,9 @@ class UploadNotes extends Component {
     this.setState({ [e.target.name]: e.target.value });
     if (e.target.name === 'classofOfNotesToBeDisplayed') {
       axios
-        .get(`/api/notes?classId=${e.target.value}`)
+        .get(`/api/notes?classId=${e.target.value}`, {
+          headers: { token: this.props.token }
+        })
         .then(res => this.setState({ notesToBeDisplayed: res.data }))
         .catch(err => console.log(err));
     }

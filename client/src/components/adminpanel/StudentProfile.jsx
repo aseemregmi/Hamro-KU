@@ -4,7 +4,9 @@ import axios from 'axios';
 const StudentProfile = props => {
   function handleSpecialAuthority() {
     axios
-      .patch(`/api/students/specialAuthority/${props.student._id}`)
+      .patch(`/api/students/specialAuthority/${props.student._id}`, null, {
+        headers: { token: props.token }
+      })
       .then(() => {
         props.resetData();
         props.handleDisplayModal();
@@ -14,7 +16,9 @@ const StudentProfile = props => {
 
   function handleVerification() {
     axios
-      .patch(`/api/students/verify/${props.student._id}`)
+      .patch(`/api/students/verify/${props.student._id}`, null, {
+        headers: { token: props.token }
+      })
       .then(() => {
         props.resetData();
         props.handleDisplayModal();
@@ -24,7 +28,9 @@ const StudentProfile = props => {
 
   function handleDelete() {
     axios
-      .delete(`/api/students/${props.student._id}`)
+      .delete(`/api/students/${props.student._id}`, {
+        headers: { token: props.token }
+      })
       .then(() => {
         props.resetData();
         props.handleDisplayModal();

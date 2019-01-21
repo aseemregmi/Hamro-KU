@@ -30,7 +30,9 @@ class Teachers extends Component {
   fetchTeachers = () => {
     return new Promise((resolve, reject) => {
       axios
-        .get('/api/teachers')
+        .get('/api/teachers', {
+          headers: { token: this.props.token }
+        })
         .then(res => {
           this.setState(
             {
@@ -104,7 +106,9 @@ class Teachers extends Component {
     switch (option) {
       case 'Department':
         axios
-          .get('/api/departments')
+          .get('/api/departments', {
+            headers: { token: this.props.token }
+          })
           .then(res =>
             this.setState({
               filterTypeValue: option,
@@ -136,6 +140,7 @@ class Teachers extends Component {
             handleDisplayModal={this.handleDisplayModal}
             teacher={this.state.teacher}
             resetData={this.resetData}
+            token={this.props.token}
           />
         ) : null}
         <div className="students__filter-container">

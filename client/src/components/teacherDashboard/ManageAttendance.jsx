@@ -13,7 +13,9 @@ class ManageAttendance extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes/?teacher=${this.props.teacher._id}`)
+      .get(`/api/classes/?teacher=${this.props.teacher._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }))
       .catch(err => console.log(err));
   }
@@ -32,11 +34,17 @@ class ManageAttendance extends Component {
     });
 
     axios
-      .post('/api/students/attendance', {
-        date,
-        studentWithAttendance,
-        classId
-      })
+      .post(
+        '/api/students/attendance',
+        {
+          date,
+          studentWithAttendance,
+          classId
+        },
+        {
+          headers: { token: this.props.token }
+        }
+      )
       .then(() => {
         this.setState({
           success: 'Attendance Created Successfully',
@@ -60,7 +68,9 @@ class ManageAttendance extends Component {
     this.setState({ [e.target.name]: e.target.value });
     if (e.target.name === 'groupId') {
       axios
-        .get(`/api/students/?group=${e.target.value}`)
+        .get(`/api/students/?group=${e.target.value}`, {
+          headers: { token: this.props.token }
+        })
         .then(res => {
           let studentWithAttendance = [];
           res.data.forEach(student => {

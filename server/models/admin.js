@@ -21,7 +21,12 @@ AdminSchema.methods.generateAdminToken = function() {
   return new Promise(async (resolve, reject) => {
     try {
       const token = jwt.sign({ _id: this._id }, 'SANA').toString();
-      const newToken = new Token({ userId: this._id, type: 'admin', token });
+      const newToken = new Token({
+        userId: this._id,
+        type: 'admin',
+        token,
+        userType: 'admin'
+      });
       const newTokenInDB = await newToken.save();
       resolve(newTokenInDB);
     } catch (err) {

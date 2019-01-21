@@ -23,7 +23,9 @@ class Departments extends Component {
 
   fetchSubjects = () => {
     axios
-      .get('/api/departments')
+      .get('/api/departments', {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ departments: res.data }))
       .catch(err => alert(err));
   };
@@ -34,7 +36,13 @@ class Departments extends Component {
     const { name, description, lattitude, longitude } = this.state;
 
     axios
-      .post('/api/departments', { name, description, lattitude, longitude })
+      .post(
+        '/api/departments',
+        { name, description, lattitude, longitude },
+        {
+          headers: { token: this.props.token }
+        }
+      )
       .then(() => {
         this.setState({
           success: 'You have Created a Department'

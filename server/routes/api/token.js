@@ -27,6 +27,9 @@ router.post('/token-user', async (req, res) => {
           const teacher = await Teacher.findById(user.userId);
           res.send(teacher);
           break;
+        case 'admin':
+          res.send();
+          break;
         default:
           throw 'Not Found';
       }

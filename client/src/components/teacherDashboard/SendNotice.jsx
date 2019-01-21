@@ -15,7 +15,9 @@ class SendNotice extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes?teacher=${this.props.teacher._id}`)
+      .get(`/api/classes?teacher=${this.props.teacher._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }))
       .catch(err => console.log(err));
   }
@@ -30,11 +32,17 @@ class SendNotice extends Component {
       }, 2000);
     } else {
       axios
-        .post(`/api/notices`, {
-          noticeDeadline: this.state.noticeDeadline,
-          classId: this.state.class,
-          body: this.state.body
-        })
+        .post(
+          `/api/notices`,
+          {
+            noticeDeadline: this.state.noticeDeadline,
+            classId: this.state.class,
+            body: this.state.body
+          },
+          {
+            headers: { token: this.props.token }
+          }
+        )
         .then(() => {
           this.setState({
             success: 'Notice Sent Successfully',
@@ -59,7 +67,9 @@ class SendNotice extends Component {
     this.setState({ [e.target.name]: e.target.value });
     if (e.target.name === 'class2') {
       axios
-        .get(`/api/notices?class=${e.target.value}`)
+        .get(`/api/notices?classId=${e.target.value}`, {
+          headers: { token: this.props.token }
+        })
         .then(res => this.setState({ notices: res.data }))
         .catch(err => console.log(err));
     }

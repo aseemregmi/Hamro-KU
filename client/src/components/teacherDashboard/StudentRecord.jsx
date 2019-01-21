@@ -15,7 +15,9 @@ class StudentRecord extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes?teacher=${this.props.teacher._id}`)
+      .get(`/api/classes?teacher=${this.props.teacher._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }))
       .catch(err => console.log(err));
   }
@@ -24,7 +26,9 @@ class StudentRecord extends Component {
     this.setState({ [e.target.name]: e.target.value });
     if (e.target.name === 'groupId') {
       axios
-        .get(`/api/students?group=${e.target.value}`)
+        .get(`/api/students?group=${e.target.value}`, {
+          headers: { token: this.props.token }
+        })
         .then(res =>
           this.setState({ students: res.data, studentId: 'default' })
         )
@@ -67,12 +71,16 @@ class StudentRecord extends Component {
       });
 
       axios
-        .get(`/api/attendances?class=${classId}&student=${studentId}`)
+        .get(`/api/attendances?class=${classId}&student=${studentId}`, {
+          headers: { token: this.props.token }
+        })
         .then(res => this.setState({ attendanceData: res.data }))
         .catch(err => console.log(err));
 
       axios
-        .get(`/api/internalExamMarks?class=${classId}&student=${studentId}`)
+        .get(`/api/internalExamMarks?class=${classId}&student=${studentId}`, {
+          headers: { token: this.props.token }
+        })
         .then(res => this.setState({ internalExamMarksData: res.data }))
         .catch(err => console.log(err));
     }

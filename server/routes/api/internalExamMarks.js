@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { InternalExamMarks } = require('./../../models/internalExamMarks');
+const { checkIfTeacherTeachesInThatClass } = require('./../../middlewares');
 
-router.get('/', async (req, res) => {
+router.get('/', checkIfTeacherTeachesInThatClass, async (req, res) => {
   try {
     const internalExamMarks = await InternalExamMarks.find(req.query)
       .populate([

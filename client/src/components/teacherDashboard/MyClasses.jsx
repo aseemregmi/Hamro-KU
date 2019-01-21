@@ -8,7 +8,9 @@ class MyClasses extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes/?teacher=${this.props.teacher._id}`)
+      .get(`/api/classes/?teacher=${this.props.teacher._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }))
       .catch(err => console.log(err));
   }

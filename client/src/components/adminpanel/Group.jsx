@@ -23,7 +23,9 @@ class Group extends Component {
 
   fetchGroups = () => {
     axios
-      .get('/api/groups')
+      .get('/api/groups', {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ groups: res.data }))
       .catch(err => alert(err));
   };
@@ -34,7 +36,13 @@ class Group extends Component {
     const { groupName, year, shortForm, school } = this.state;
 
     axios
-      .post('/api/groups', { groupName, year, shortForm, school })
+      .post(
+        '/api/groups',
+        { groupName, year, shortForm, school },
+        {
+          headers: { token: this.props.token }
+        }
+      )
       .then(() => {
         this.setState({
           success: 'You have Created a group'

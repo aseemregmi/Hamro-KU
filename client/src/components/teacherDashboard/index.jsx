@@ -22,34 +22,39 @@ class Dashboard extends Component {
     axios
       .post('/api/tokens/token-user', { token: this.props.auth.token })
       .then(res => this.setState({ teacher: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.props.dispatch({ type: 'REMOVE_TOKEN_FROM_LOCALSTORAGE' });
+      });
   }
 
   render() {
     if (!this.state.teacher) {
       return null;
     }
+
+    const { token } = this.props.auth;
+
     return (
       <div className="dashboard">
         <SideBar name={this.state.teacher.name} />
         <div className="dashboard__main-section">
           {this.props.match.params.option === 'classes' ? (
-            <MyClasses teacher={this.state.teacher} />
+            <MyClasses teacher={this.state.teacher} token={token} />
           ) : null}
           {this.props.match.params.option === 'internal-marks' ? (
-            <AddInternalMarks teacher={this.state.teacher} />
+            <AddInternalMarks token={token} teacher={this.state.teacher} />
           ) : null}
           {this.props.match.params.option === 'attendance' ? (
-            <ManageAttendance teacher={this.state.teacher} />
+            <ManageAttendance token={token} teacher={this.state.teacher} />
           ) : null}
           {this.props.match.params.option === 'student' ? (
-            <StudentRecord teacher={this.state.teacher} />
+            <StudentRecord token={token} teacher={this.state.teacher} />
           ) : null}
           {this.props.match.params.option === 'notes' ? (
-            <UploadNotes teacher={this.state.teacher} />
+            <UploadNotes token={token} teacher={this.state.teacher} />
           ) : null}
           {this.props.match.params.option === 'notice' ? (
-            <SendNotice teacher={this.state.teacher} />
+            <SendNotice token={token} teacher={this.state.teacher} />
           ) : null}
         </div>
       </div>

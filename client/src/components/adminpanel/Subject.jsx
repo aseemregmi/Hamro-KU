@@ -22,7 +22,9 @@ class Subject extends Component {
 
   fetchSubjects = () => {
     axios
-      .get('/api/subjects')
+      .get('/api/subjects', {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ subjects: res.data }))
       .catch(err => alert(err));
   };
@@ -33,7 +35,13 @@ class Subject extends Component {
     const { name, subjectCode, credit } = this.state;
 
     axios
-      .post('/api/subjects', { name, subjectCode, credit })
+      .post(
+        '/api/subjects',
+        { name, subjectCode, credit },
+        {
+          headers: { token: this.props.token }
+        }
+      )
       .then(() => {
         this.setState({
           success: 'You have Created a subject'

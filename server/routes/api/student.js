@@ -2,19 +2,28 @@ const { Student } = require('./../../models/student');
 const { InternalExamMarks } = require('./../../models/internalExamMarks');
 const { Attendance } = require('./../../models/attendance');
 const router = require('express').Router();
+const {
+  isAuthenticatedAsAdmin,
+  isHimself,
+  isAuthenticatedAsAdminOrTeacherTeachingInThatGroup
+} = require('./../../middlewares');
 
-router.get('/', async (req, res) => {
-  try {
-    const students = await Student.find(req.query)
-      .populate('group')
-      .exec();
-    res.send(students);
-  } catch (err) {
-    res.status(400).send(err);
+router.get(
+  '/',
+  isAuthenticatedAsAdminOrTeacherTeachingInThatGroup,
+  async (req, res) => {
+    try {
+      const students = await Student.find(req.query)
+        .populate('group')
+        .exec();
+      res.send(students);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   }
-});
+);
 
-router.get('/withalldata', async (req, res) => {
+router.get('/withalldata', isHimself, async (req, res) => {
   try {
     const student = await Student.findById(req.query._id)
       .populate([
@@ -121,7 +130,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.patch('/verify/:id', async (req, res) => {
+router.patch('/verify/:id', isAuthenticatedAsAdmin, async (req, res) => {
   try {
     let student = await Student.findById(req.params.id);
     student.verified = !student.verified;
@@ -133,19 +142,23 @@ router.patch('/verify/:id', async (req, res) => {
   }
 });
 
-router.patch('/specialAuthority/:id', async (req, res) => {
-  try {
-    let student = await Student.findById(req.params.id);
-    student.specialAuthority = !student.specialAuthority;
+router.patch(
+  '/specialAuthority/:id',
+  isAuthenticatedAsAdmin,
+  async (req, res) => {
+    try {
+      let student = await Student.findById(req.params.id);
+      student.specialAuthority = !student.specialAuthority;
 
-    const updatedStudent = await student.save();
-    res.send(updatedStudent);
-  } catch (err) {
-    res.status(400).send(err);
+      const updatedStudent = await student.save();
+      res.send(updatedStudent);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   }
-});
+);
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuthenticatedAsAdmin, async (req, res) => {
   try {
     const student = await Student.findByIdAndDelete(req.params.id);
     res.send(student);

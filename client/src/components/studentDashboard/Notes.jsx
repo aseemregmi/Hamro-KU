@@ -9,14 +9,18 @@ class Notes extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes?group=${this.props.student.group._id}`)
+      .get(`/api/classes?group=${this.props.student.group._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }))
       .catch(err => console.log(err));
   }
 
   onChange = e => {
     axios
-      .get(`/api/notes?classId=${e.target.value}`)
+      .get(`/api/notes?classId=${e.target.value}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ notes: res.data }))
       .catch(err => console.log(err));
   };

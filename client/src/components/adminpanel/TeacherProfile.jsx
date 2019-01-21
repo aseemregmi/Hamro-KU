@@ -4,7 +4,9 @@ import axios from 'axios';
 const TeacherProfile = props => {
   function handleVerification() {
     axios
-      .patch(`/api/teachers/verify/${props.teacher._id}`)
+      .patch(`/api/teachers/verify/${props.teacher._id}`, null, {
+        headers: { token: props.token }
+      })
       .then(() => {
         props.resetData();
         props.handleDisplayModal();
@@ -14,7 +16,9 @@ const TeacherProfile = props => {
 
   function handleDelete() {
     axios
-      .delete(`/api/teachers/${props.teacher._id}`)
+      .delete(`/api/teachers/${props.teacher._id}`, {
+        headers: { token: props.token }
+      })
       .then(() => {
         props.resetData();
         props.handleDisplayModal();

@@ -15,6 +15,7 @@ import isAuthenticatedAsAdmin from './components/hocs/isAuthenticatedAsAdmin';
 import isNotAuthenticated from './components/hocs/isNotAuthenticated';
 import passAuthProps from './components/hocs/passAuthProps';
 import AdminPanel from './components/pages/AdminPanel';
+import NotFound from './components/NotFound';
 
 class App extends Component {
   render() {
@@ -54,6 +55,7 @@ class App extends Component {
                 path="/adminpanel/:option"
                 component={isAuthenticatedAsAdmin(AdminPanel)}
               />
+              <Route component={NotFound} />
             </Switch>
             <Footer />
           </div>

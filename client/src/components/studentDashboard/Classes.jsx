@@ -19,7 +19,9 @@ class Classes extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes?group=${this.props.student.group._id}`)
+      .get(`/api/classes?group=${this.props.student.group._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }));
   }
 

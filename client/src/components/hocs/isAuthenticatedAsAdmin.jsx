@@ -6,22 +6,19 @@ const isAuthenticatedAsAdmin = ComponentToCheckAuthentication => {
     state = { auth: null };
 
     static getDerivedStateFromProps(nextProps) {
+      console.log(nextProps);
+      if (!nextProps.auth) {
+        nextProps.history.push('/login?type=admin');
+      } else if (!(nextProps.auth && nextProps.auth.type === 'admin')) {
+        nextProps.history.push('/login?type=admin');
+      }
       return { auth: nextProps.auth };
     }
 
-    componentDidUpdate() {
-      if (!(this.state.auth && this.state.auth.type === 'admin')) {
-        this.props.history.push('/');
-      }
-    }
-
-    componentDidMount() {
-      if (!(this.state.auth && this.state.auth.type === 'admin')) {
-        this.props.history.push('/');
-      }
-    }
-
     render() {
+      if (!this.props.auth) {
+        return null;
+      }
       return (
         <ComponentToCheckAuthentication
           {...this.props}

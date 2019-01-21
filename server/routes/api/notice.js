@@ -1,18 +1,26 @@
 const router = require('express').Router();
 const { Notice } = require('./../../models/notice');
+const {
+  checkIfTeacherTeachesInThatClass,
+  checkEitherStudentOrTeacherBelongsToTheClass
+} = require('./../../middlewares');
 
-router.get('/', async (req, res) => {
-  try {
-    const notices = await Notice.find(req.query).sort({
-      noticeDeadline: 'ascending'
-    });
-    res.send(notices);
-  } catch (err) {
-    res.status(400).send(err);
+router.get(
+  '/',
+  checkEitherStudentOrTeacherBelongsToTheClass,
+  async (req, res) => {
+    try {
+      const notices = await Notice.find({ class: req.query.classId }).sort({
+        noticeDeadline: 'ascending'
+      });
+      res.send(notices);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   }
-});
+);
 
-router.post('/', async (req, res) => {
+router.post('/', checkIfTeacherTeachesInThatClass, async (req, res) => {
   try {
     const { noticeDeadline, body, classId } = req.body;
     const notice = await new Notice({

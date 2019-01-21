@@ -1,7 +1,15 @@
 const router = require('express').Router();
 const { Admin } = require('./../../models/admin');
+const { isAuthenticatedAsAdmin } = require('./../../middlewares');
 
-router.post('/', (req, res) => {
+new Admin({ username: 'aseemregmi', password: 'password123' })
+  .save()
+  .then(res => console.log('Admin Created'))
+  .catch(err => console.log('Admin Already Created'));
+
+// Only Admins Can Access These Routes
+// Tested for all cases
+router.post('/', isAuthenticatedAsAdmin, (req, res) => {
   const { username, password } = req.body;
   const newAdmin = new Admin({ username, password });
 
@@ -11,7 +19,9 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).send(err));
 });
 
-router.get('/', (req, res) => {
+// Only Admins Can Access These Routes
+// Tested for all cases
+router.get('/', isAuthenticatedAsAdmin, (req, res) => {
   Admin.find({})
     .then(admins => res.send(admins))
     .catch(err => res.status(400).send(err));

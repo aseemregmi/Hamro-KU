@@ -1,16 +1,24 @@
 const { Teacher } = require('./../../models/teacher');
 const router = require('express').Router();
+const {
+  isAuthenticatedAsAdmin,
+  eitherAuthenticatedAsStudentWithSpecialAuthorityOrAdmin
+} = require('./../../middlewares');
 
-router.get('/', async (req, res) => {
-  try {
-    const teachers = await Teacher.find({})
-      .populate('department')
-      .exec();
-    res.send(teachers);
-  } catch (err) {
-    res.status(400).send(err);
+router.get(
+  '/',
+  eitherAuthenticatedAsStudentWithSpecialAuthorityOrAdmin,
+  async (req, res) => {
+    try {
+      const teachers = await Teacher.find({})
+        .populate('department')
+        .exec();
+      res.send(teachers);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   }
-});
+);
 
 router.post('/', (req, res) => {
   const {
@@ -39,7 +47,7 @@ router.post('/', (req, res) => {
     .catch(err => res.status(400).send(`${err.message}`));
 });
 
-router.patch('/verify/:id', async (req, res) => {
+router.patch('/verify/:id', isAuthenticatedAsAdmin, async (req, res) => {
   try {
     let teacher = await Teacher.findById(req.params.id);
     teacher.verified = !teacher.verified;
@@ -73,7 +81,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuthenticatedAsAdmin, async (req, res) => {
   try {
     const teacher = await Teacher.findByIdAndDelete(req.params.id);
     res.send(teacher);

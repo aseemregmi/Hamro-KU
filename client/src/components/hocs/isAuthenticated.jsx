@@ -23,17 +23,10 @@ const isAuthenticated = ComponentToCheckAuthentication => {
       };
     }
 
-    componentDidMount() {
-      if (!this.props.auth) {
-        this.props.history.push('/login?type=student');
-      } else {
-        if (this.props.auth.type === 'admin') {
-          this.props.history.push('/login?type=student');
-        }
-      }
-    }
-
     render() {
+      if (!this.props.auth) {
+        return null;
+      }
       return (
         <ComponentToCheckAuthentication
           {...this.props}

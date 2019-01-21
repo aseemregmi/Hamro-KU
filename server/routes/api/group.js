@@ -1,5 +1,6 @@
 const { Group } = require('./../../models/group');
 const router = require('express').Router();
+const { isAuthenticatedAsAdmin } = require('./../../middlewares');
 
 router.get('/', (req, res) => {
   Group.find({})
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticatedAsAdmin, async (req, res) => {
   const { groupName, year, shortForm, school } = req.body;
   const newGroup = new Group({ groupName, year, shortForm, school });
   try {

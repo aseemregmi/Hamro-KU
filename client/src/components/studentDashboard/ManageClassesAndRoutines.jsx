@@ -17,15 +17,21 @@ class ManageClassesAndRoutines extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes?group=${this.props.student.group._id}`)
+      .get(`/api/classes?group=${this.props.student.group._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }));
 
     axios
-      .get(`/api/teachers`)
+      .get(`/api/teachers`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ teachers: res.data }));
 
     axios
-      .get(`/api/subjects`)
+      .get(`/api/subjects`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ subjects: res.data }));
   }
 
@@ -49,11 +55,17 @@ class ManageClassesAndRoutines extends Component {
 
     const { teacher, subject } = this.state;
     axios
-      .post('/api/classes', {
-        teacher,
-        subject,
-        group: this.props.student.group._id
-      })
+      .post(
+        '/api/classes',
+        {
+          teacher,
+          subject,
+          group: this.props.student.group._id
+        },
+        {
+          headers: { token: this.props.token }
+        }
+      )
       .then(res => {
         this.componentDidMount();
       })
@@ -70,12 +82,18 @@ class ManageClassesAndRoutines extends Component {
     const { startTime, duration, day, modalData } = this.state;
 
     axios
-      .post('/api/routines', {
-        startTime,
-        duration,
-        day,
-        classId: modalData._id
-      })
+      .post(
+        '/api/routines',
+        {
+          startTime,
+          duration,
+          day,
+          classId: modalData._id
+        },
+        {
+          headers: { token: this.props.token }
+        }
+      )
       .then(res => {
         console.log(res);
         this.setState({ modal: false });

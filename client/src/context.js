@@ -21,6 +21,12 @@ const reducer = (state, action) => {
         auth: null
       };
 
+    case 'REMOVE_TOKEN_FROM_LOCALSTORAGE':
+      localStorage.removeItem('auth');
+      return {
+        auth: null
+      };
+
     default:
       return state;
   }

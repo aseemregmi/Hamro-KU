@@ -16,7 +16,9 @@ class AddInternalMarks extends Component {
     this.setState({ [e.target.name]: e.target.value });
     if (e.target.name === 'groupId') {
       axios
-        .get(`/api/students/?group=${e.target.value}`)
+        .get(`/api/students/?group=${e.target.value}`, {
+          headers: { token: this.props.token }
+        })
         .then(res => {
           let studentIdWithMarks = [];
           res.data.forEach(student => {
@@ -34,7 +36,9 @@ class AddInternalMarks extends Component {
 
   componentDidMount() {
     axios
-      .get(`/api/classes/?teacher=${this.props.teacher._id}`)
+      .get(`/api/classes/?teacher=${this.props.teacher._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res => this.setState({ classes: res.data }))
       .catch(err => console.log(err));
   }
@@ -84,13 +88,19 @@ class AddInternalMarks extends Component {
       }, 2000);
     } else {
       axios
-        .post('/api/students/internalexammarks', {
-          examNo,
-          studentIdWithMarks,
-          groupId,
-          fullMarks,
-          classId
-        })
+        .post(
+          '/api/students/internalexammarks',
+          {
+            examNo,
+            studentIdWithMarks,
+            groupId,
+            fullMarks,
+            classId
+          },
+          {
+            headers: { token: this.props.token }
+          }
+        )
         .then(res => {
           this.setState({
             success: 'Marks Addedd Successfully',

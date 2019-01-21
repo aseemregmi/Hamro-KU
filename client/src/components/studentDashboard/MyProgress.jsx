@@ -92,7 +92,10 @@ class MyProgress extends Component {
 
   async componentDidMount() {
     const { data } = await axios.get(
-      `/api/students/withalldata?_id=${this.props.student._id}`
+      `/api/students/withalldata?_id=${this.props.student._id}`,
+      {
+        headers: { token: this.props.token }
+      }
     );
     this.setState({ student: data }, () => {
       this.setState({
@@ -111,7 +114,9 @@ class MyProgress extends Component {
     console.log(this.getNoOfExamsHeldTillNow());
 
     axios
-      .get(`/api/classes/?group=${this.props.student.group._id}`)
+      .get(`/api/classes/?group=${this.props.student.group._id}`, {
+        headers: { token: this.props.token }
+      })
       .then(res =>
         this.setState({ classes: res.data }, () => {
           let columnChartInternalExamMarksSeries = this.getNoOfExamsHeldTillNow().map(
@@ -126,7 +131,6 @@ class MyProgress extends Component {
               };
             }
           );
-          console.log(columnChartInternalExamMarksSeries);
           if (
             columnChartInternalExamMarksSeries === undefined ||
             columnChartInternalExamMarksSeries.length == 0

@@ -1,7 +1,11 @@
 const { Subject } = require('./../../models/subject');
 const router = require('express').Router();
+const {
+  isAuthenticated,
+  isAuthenticatedAsAdmin
+} = require('./../../middlewares');
 
-router.get('/', (req, res) => {
+router.get('/', isAuthenticated, (req, res) => {
   Subject.find({})
     .then(subjects => {
       res.send(subjects);
@@ -11,7 +15,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', isAuthenticatedAsAdmin, (req, res) => {
   const { name, subjectCode, credit } = req.body;
 
   const newSubject = new Subject({ name, subjectCode, credit });

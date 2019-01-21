@@ -25,13 +25,18 @@ class StudentDashboard extends Component {
     axios
       .post('/api/tokens/token-user', { token: this.props.auth.token })
       .then(res => this.setState({ student: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {
+        this.props.dispatch({ type: 'REMOVE_TOKEN_FROM_LOCALSTORAGE' });
+      });
   }
 
   render() {
     if (!this.state.student.name) {
       return null;
     }
+
+    const { token } = this.props.auth;
+
     return (
       <div className="dashboard">
         <SideBar student={this.state.student} />
@@ -40,20 +45,23 @@ class StudentDashboard extends Component {
             <ChatRoom student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'classes' ? (
-            <Classes student={this.state.student} />
+            <Classes token={token} student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'notes' ? (
-            <Notes student={this.state.student} />
+            <Notes token={token} student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'notice' ? (
-            <Notices student={this.state.student} />
+            <Notices token={token} student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'progress' ? (
-            <MyProgress student={this.state.student} />
+            <MyProgress token={token} student={this.state.student} />
           ) : null}
           {this.props.match.params.option === 'manage-class-routines' &&
           this.state.student.specialAuthority ? (
-            <ManageClassesAndRoutines student={this.state.student} />
+            <ManageClassesAndRoutines
+              token={token}
+              student={this.state.student}
+            />
           ) : null}
         </div>
       </div>

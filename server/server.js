@@ -4,6 +4,10 @@ const cors = require('cors');
 const path = require('path');
 const socketIo = require('socket.io');
 const multer = require('multer');
+const {
+  isAuthenticatedAsTeacher,
+  unAuthorizeArrayInQueries
+} = require('./middlewares');
 
 // Set Storage Engine
 const storage = multer.diskStorage({
@@ -28,6 +32,8 @@ const upload = multer({
 
 // Init express app
 const app = express();
+
+app.use(unAuthorizeArrayInQueries);
 
 // Setup cors
 app.use(cors());
@@ -83,7 +89,10 @@ app.use('/api/attendances', attendanceApi);
 app.use('/api/internalExamMarks', internalExamMarksApi);
 app.use('/api/notices', noticeApi);
 
-app.post('/fileupload', (req, res) => {
+// Only Teachers Can Access This Route
+// Tested for all cases
+app.post('/fileupload', isAuthenticatedAsTeacher, (req, res) => {
+  console.log(req.headers.token);
   upload(req, res, err => {
     if (err) {
       res.render('index', {
