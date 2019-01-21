@@ -55,7 +55,7 @@ class ManageClassesAndRoutines extends Component {
         group: this.props.student.group._id
       })
       .then(res => {
-        console.log(res);
+        this.componentDidMount();
       })
       .catch(err => console.log(err));
   };
@@ -79,6 +79,7 @@ class ManageClassesAndRoutines extends Component {
       .then(res => {
         console.log(res);
         this.setState({ modal: false });
+        this.componentDidMount();
       })
       .catch(err => console.log(err));
   };

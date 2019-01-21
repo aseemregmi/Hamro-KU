@@ -86,7 +86,7 @@ class MyProgress extends Component {
     });
 
     let dummyArray = new Array(noOfExams).fill(null);
-
+    console.log('Number of exams : ', noOfExams);
     return dummyArray;
   };
 
@@ -114,22 +114,24 @@ class MyProgress extends Component {
       .get(`/api/classes/?group=${this.props.student.group._id}`)
       .then(res =>
         this.setState({ classes: res.data }, () => {
-          let columnChartAttendanceSeries = this.getNoOfExamsHeldTillNow().map(
+          let columnChartInternalExamMarksSeries = this.getNoOfExamsHeldTillNow().map(
             (data, index) => {
               return {
                 name: `Exam ${index + 1}`,
-                data: this.state.classes.map(singleClass =>
-                  this.getObtainedMarks(singleClass._id, index + 1)
-                )
+                data: this.state.classes.map(singleClass => {
+                  let data = this.getObtainedMarks(singleClass._id, index + 1);
+                  console.log(data);
+                  return data === undefined ? 0 : data;
+                })
               };
             }
           );
-
+          console.log(columnChartInternalExamMarksSeries);
           if (
-            columnChartAttendanceSeries === undefined ||
-            columnChartAttendanceSeries.length == 0
+            columnChartInternalExamMarksSeries === undefined ||
+            columnChartInternalExamMarksSeries.length == 0
           ) {
-            columnChartAttendanceSeries = [{ name: 'Exam 1', data: [] }];
+            columnChartInternalExamMarksSeries = [{ name: 'Exam 1', data: [] }];
           }
 
           this.setState({
@@ -153,7 +155,7 @@ class MyProgress extends Component {
                 )
               }
             ],
-            columnChartInternalExamMarksSeries: columnChartAttendanceSeries,
+            columnChartInternalExamMarksSeries: columnChartInternalExamMarksSeries,
             columnChartAttendanceOptions: {
               plotOptions: {
                 bar: {

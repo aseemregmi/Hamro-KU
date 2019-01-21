@@ -100,7 +100,7 @@ app.post('/fileupload', (req, res) => {
           data: {
             msg: 'File Uploaded',
             file: `uploads/${req.file.filename}`,
-            link: `http://localhost:5000/uploads/${req.file.filename}`,
+            link: `/uploads/${req.file.filename}`,
             type: req.file.mimeType
           },
           success: true,

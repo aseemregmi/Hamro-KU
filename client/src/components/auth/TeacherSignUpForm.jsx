@@ -15,7 +15,7 @@ class TeacherSignupForm extends Component {
       phoneNo: '',
       address: '',
       departments: [],
-      department: {},
+      department: 'default',
       post: ''
     };
   }
@@ -50,7 +50,7 @@ class TeacherSignupForm extends Component {
         name,
         email,
         password,
-        department: department._id,
+        department,
         phoneNo,
         post,
         address
@@ -58,18 +58,18 @@ class TeacherSignupForm extends Component {
       .then(() => {
         this.setState({
           success:
-            'You successfully Signed Up. Please wait till we verify your account'
+            'You successfully Signed Up. Please wait till we verify your account',
+          name: '',
+          email: '',
+          password: '',
+          phoneNo: '',
+          address: '',
+          department: 'default',
+          post: ''
         });
         setTimeout(() => {
           this.setState({
-            success: null,
-            name: '',
-            email: '',
-            password: '',
-            phoneNo: '',
-            address: '',
-            department: {},
-            post: ''
+            success: null
           });
         }, 2000);
       })
@@ -111,23 +111,29 @@ class TeacherSignupForm extends Component {
           type="password"
           name="password"
         />
-        <div className="dropdown">
-          <span>
-            {this.state.department.name || 'Select Your Department'}
-            &nbsp;&nbsp;&nbsp;
-            <i className="fas fa-arrow-down" />
-          </span>
-          <div className="options">
-            {this.state.departments.map(department => (
-              <span
-                key={department.name}
-                onClick={() => this.handleDepartmentChange(department)}
-              >
-                {department.name}
-              </span>
-            ))}
-          </div>
-        </div>
+
+        <select
+          style={{
+            fontSize: '1.5rem',
+            padding: '10px',
+            boxShadow: '0rem 0.3rem 0.9rem #f7f7f7',
+            border: 'none'
+          }}
+          name="department"
+          value={this.state.department}
+          onChange={this.handleChange}
+        >
+          <option disabled value="default">
+            Select Your Department
+          </option>
+
+          {this.state.departments.map(department => (
+            <option key={department._id} value={department._id}>
+              {department.name}
+            </option>
+          ))}
+        </select>
+
         <Input
           placeholder="Post"
           value={this.state.post}

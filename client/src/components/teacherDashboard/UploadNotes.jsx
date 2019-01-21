@@ -9,7 +9,8 @@ class UploadNotes extends Component {
     error: null,
     success: null,
     classofOfNotesToBeDisplayed: 'default',
-    notesToBeDisplayed: []
+    notesToBeDisplayed: [],
+    uploadedPercentage: null
   };
 
   uploadButtonRef = React.createRef();
@@ -26,13 +27,26 @@ class UploadNotes extends Component {
       setTimeout(() => {
         this.setState({ error: null });
       }, 2000);
+    } else if (e.target.files[0].fileSize >= 25000000) {
+      this.setState({ error: 'File should be smaller than 25 MB' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
     } else {
-      e.preventDefault();
       const data = new FormData();
       data.append('file', e.target.files[0]);
       axios
-        .post('/fileupload', data)
+        .post('/fileupload', data, {
+          onUploadProgress: progressEvent => {
+            this.setState({
+              uploadedPercentage: Math.round(
+                (progressEvent.loaded / progressEvent.total) * 100
+              )
+            });
+          }
+        })
         .then(res => {
+          this.setState({ uploadedPercentage: null });
           let noteUrl = res.data.data.link;
           axios
             .post('/api/notes', {
@@ -49,9 +63,20 @@ class UploadNotes extends Component {
               setTimeout(() => {
                 this.setState({ success: null });
               }, 2000);
+            })
+            .catch(err => {
+              this.setState({ error: 'Failed To Upload Note' });
+              setTimeout(() => {
+                this.setState({ error: null });
+              }, 2000);
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          this.setState({ error: 'Failed To Upload Note' });
+          setTimeout(() => {
+            this.setState({ error: null });
+          }, 2000);
+        });
     }
   };
 
@@ -60,10 +85,7 @@ class UploadNotes extends Component {
     if (e.target.name === 'classofOfNotesToBeDisplayed') {
       axios
         .get(`/api/notes?classId=${e.target.value}`)
-        .then(res => {
-          console.log(res.data);
-          this.setState({ notesToBeDisplayed: res.data });
-        })
+        .then(res => this.setState({ notesToBeDisplayed: res.data }))
         .catch(err => console.log(err));
     }
   };
@@ -114,10 +136,17 @@ class UploadNotes extends Component {
               type="file"
               onChange={this.handleNotesUpload}
             />
-            <button onClick={() => this.uploadButtonRef.current.click()}>
+            <button
+              style={{ cursor: 'pointer' }}
+              onClick={() => this.uploadButtonRef.current.click()}
+            >
               Upload Note For This Class
             </button>
           </div>
+
+          {this.state.uploadedPercentage ? (
+            <h3> Uploaded Percentage : {this.state.uploadedPercentage} %</h3>
+          ) : null}
         </form>
 
         <div>

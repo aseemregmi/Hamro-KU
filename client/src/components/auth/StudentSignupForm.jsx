@@ -9,7 +9,7 @@ class StudentSignupForm extends Component {
     name: '',
     email: '',
     password: '',
-    group: {},
+    group: 'default',
     phoneNo: '',
     registrationNo: '',
     address: '',
@@ -26,7 +26,7 @@ class StudentSignupForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleGroupChange = group => this.setState({ group });
+  // handleGroupChange = group => this.setState({ group });
 
   handleSubmit = e => {
     e.preventDefault();
@@ -48,13 +48,20 @@ class StudentSignupForm extends Component {
         password,
         phoneNo,
         registrationNo,
-        group: group._id,
+        group,
         address
       })
       .then(() => {
         this.setState({
           success:
-            'You successfully Signed Up. Please wait till we verify your account'
+            'You successfully Signed Up. Please wait till we verify your account',
+          name: '',
+          email: '',
+          password: '',
+          phoneNo: '',
+          registrationNo: '',
+          group: 'default',
+          address: ''
         });
         setTimeout(() => {
           this.setState({ success: null });
@@ -98,23 +105,26 @@ class StudentSignupForm extends Component {
           type="password"
           name="password"
         />
-        <div className="dropdown">
-          <span>
-            {this.state.group.shortForm || 'Select Your Group'}
-            &nbsp;&nbsp;&nbsp;
-            <i className="fas fa-arrow-down" />
-          </span>
-          <div className="options">
-            {this.state.groups.map(group => (
-              <span
-                key={group.shortForm}
-                onClick={() => this.handleGroupChange(group)}
-              >
-                {group.shortForm}
-              </span>
-            ))}
-          </div>
-        </div>
+        <select
+          style={{
+            fontSize: '1.5rem',
+            padding: '10px',
+            boxShadow: '0rem 0.3rem 0.9rem #f7f7f7',
+            border: 'none'
+          }}
+          name="group"
+          value={this.state.group}
+          onChange={this.handleChange}
+        >
+          <option value="default" disabled>
+            Select Your Group
+          </option>
+          {this.state.groups.map(group => (
+            <option key={group._id} value={group._id}>
+              {group.shortForm}
+            </option>
+          ))}
+        </select>
 
         <Input
           placeholder="Phone No"
