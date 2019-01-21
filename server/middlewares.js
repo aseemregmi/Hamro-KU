@@ -35,7 +35,6 @@ const isAuthenticatedAsAdmin = async (req, res, next) => {
   try {
     const { token } = req.headers;
     const tokeninDB = await Token.findOne({ token });
-    console.log(tokeninDB);
     if (tokeninDB.userType === 'admin') {
       next();
     } else {

@@ -2,11 +2,6 @@ const router = require('express').Router();
 const { Admin } = require('./../../models/admin');
 const { isAuthenticatedAsAdmin } = require('./../../middlewares');
 
-new Admin({ username: 'aseemregmi', password: 'password123' })
-  .save()
-  .then(res => console.log('Admin Created'))
-  .catch(err => console.log('Admin Already Created'));
-
 // Only Admins Can Access These Routes
 // Tested for all cases
 router.post('/', isAuthenticatedAsAdmin, (req, res) => {
