@@ -12,8 +12,7 @@ class ChatRoom extends Component {
 
     this.messages = React.createRef();
 
-    // this.socket = socketIOClient('https://calm-depths-75592.herokuapp.com');
-    this.socket = socketIOClient('http://localhost:5000');
+    this.socket = socketIOClient('https://calm-depths-75592.herokuapp.com');
 
     this.socket.on('connect', () => {
       this.socket.emit('join', props.student, function(err) {});
