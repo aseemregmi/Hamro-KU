@@ -54,23 +54,15 @@ const StudentProfile = props => {
           <span>Year : {props.student.group.year}</span>
           <span>School : {props.student.group.school}</span>
           <span>Phone No : {props.student.phoneNo}</span>
-          <span
-            onClick={handleSpecialAuthority}
-            style={{ cursor: 'pointer', color: 'red' }}
-          >
+          <button className="btn btn--primary" onClick={handleSpecialAuthority}>
             {props.student.specialAuthority
-              ? 'This Student Has Special Authority in his/her class. Click Here If you want to cancel his/her authority'
-              : "This Student doesn't have special authority in his/her class. Click Here If you want to grant him/her authority"}
-          </span>
-          <span
-            onClick={handleVerification}
-            style={{ cursor: 'pointer', color: 'red' }}
-          >
-            {props.student.verified
-              ? 'This account is verified. Are There Some Mistakes. Click Here To UnVerify'
-              : 'This account is not Verified. Click Here If The Informations Are Correct and You Need To Verify Account'}
-          </span>
-          <button className="btn btn--primary" onClick={handleDelete}>
+              ? 'Remove Special Authority'
+              : 'Provide Special Authority'}
+          </button>
+          <button className="btn btn--primary" onClick={handleVerification}>
+            {props.student.verified ? 'UnVerify This Account' : 'Verify'}
+          </button>
+          <button className="btn btn--secondary" onClick={handleDelete}>
             Click Here To Delete This Student Account
           </button>
         </div>

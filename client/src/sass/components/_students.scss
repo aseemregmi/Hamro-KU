@@ -5,93 +5,33 @@
 
     &__filter-container {
       display: flex;
-      font-size: 1.5rem;
-      justify-content: center;
       align-items: center;
-      margin: 5rem 4rem 5rem 4rem;
-      max-width: 70rem;
+      justify-content: flex-start;
+      font-size: 1.5rem;
+      margin-left: 25px;
+
+      span {
+        color: orange;
+      }
+
+      select {
+        min-width: 300px;
+      }
 
       & > * {
-        flex: 2;
-        padding: 0.5rem 0.5rem;
-        text-align: center;
-
-        &:hover {
-          cursor: pointer;
-        }
+        margin-right: 10px;
       }
+    }
 
-      & > *:first-child {
-        flex: 1;
-        color: $color-secondary-dark;
-        font-weight: 700;
+    .searchField {
+      margin: 10px;
+      margin-left: 25px;
 
-        &:hover {
-          cursor: initial;
-        }
-      }
-
-      & > *:last-child {
-        border: none;
-        flex: 0.75;
-      }
-
-      .filter-type {
-        position: relative;
-
-        .options {
-          display: none;
-          position: absolute;
-          top: 0;
-          width: 100%;
-          background-color: $color-white;
-
-          & > * {
-            display: block;
-            padding: 0.5rem;
-
-            &:hover {
-              cursor: pointer;
-              background-color: $color-grey-light-1;
-            }
-          }
-        }
-
-        &:hover {
-          .options {
-            display: block;
-          }
-        }
-      }
-
-      .filter-fields {
-        position: relative;
-        width: 100%;
-        margin: 0 1rem;
-
-        .filter-items-container {
-          display: none;
-          position: absolute;
-          top: 0;
-          width: 100%;
-          background-color: $color-white;
-
-          & > * {
-            display: block;
-            padding: 0.5rem;
-
-            &:hover {
-              cursor: pointer;
-              background-color: $color-grey-light-1;
-            }
-          }
-        }
-
-        &:hover {
-          .filter-items-container {
-            display: block;
-          }
-        }
+      input {
+        border: 1px solid #f1f1f1;
+        padding: 5px;
+        padding-left: 10px;
+        border-radius: 100px;
       }
     }
   }

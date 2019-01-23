@@ -40,15 +40,10 @@ const TeacherProfile = props => {
           <span>Post : {props.teacher.post}</span>
           <span>Department : {props.teacher.department.name}</span>
           <span>Address : {props.teacher.address}</span>
-          <span
-            onClick={handleVerification}
-            style={{ cursor: 'pointer', color: 'red' }}
-          >
-            {props.teacher.verified
-              ? 'This account is verified. Are There Some Mistakes. Click Here To UnVerify'
-              : 'This account is not Verified. Click Here If The Informations Are Correct and You Need To Verify Account'}
-          </span>
-          <button className="btn btn--primary" onClick={handleDelete}>
+          <button onClick={handleVerification} className="btn btn--primary">
+            {props.teacher.verified ? 'UnVerify This Account' : 'Verify'}
+          </button>
+          <button className="btn btn--secondary" onClick={handleDelete}>
             Click Here To Delete This Teacher Account
           </button>
         </div>

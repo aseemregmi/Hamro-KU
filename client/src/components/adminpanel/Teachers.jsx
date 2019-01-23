@@ -8,9 +8,9 @@ class Teachers extends Component {
     teachers: [],
     teachersToBeDisplayed: [],
     filterType: ['Verification', 'Department'],
-    filterTypeValue: 'Select Filter Type',
+    filterTypeValue: 'default',
     filterFields: [],
-    filterFieldValue: 'First Select Filter Type',
+    filterFieldValue: 'default',
     displayModal: false,
     teacher: {}
   };
@@ -66,6 +66,12 @@ class Teachers extends Component {
   };
 
   handleSubmit = () => {
+    if (
+      this.state.filterFieldValue === 'default' ||
+      this.state.filterTypeValue === 'default'
+    ) {
+      return;
+    }
     return new Promise((resolve, reject) => {
       switch (this.state.filterTypeValue) {
         case 'Department':
@@ -97,9 +103,26 @@ class Teachers extends Component {
           );
           break;
         default:
-          return null;
+          reject();
       }
     });
+  };
+
+  handleTeacherSearch = e => {
+    const name = e.target.value;
+    if (name === '') {
+      this.setState({ teachersToBeDisplayed: this.state.teachers });
+    } else {
+      const name = e.target.value;
+      const teachers = this.state.teachers.slice().filter(teacher => {
+        if (teacher.name.toLowerCase().indexOf(name.toLowerCase()) >= 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      this.setState({ teachersToBeDisplayed: teachers });
+    }
   };
 
   handleFilterTypeValue = option => {
@@ -113,20 +136,18 @@ class Teachers extends Component {
             this.setState({
               filterTypeValue: option,
               filterFields: res.data,
-              filterFieldValue: 'Select Filter Field'
+              filterFieldValue: 'default'
             })
           )
           .catch(err => alert(err));
         break;
-
       case 'Verification':
         this.setState({
           filterFields: ['Verified', 'Not Verified'],
           filterTypeValue: option,
-          filterFieldValue: 'Select Filter Field'
+          filterFieldValue: 'default'
         });
         break;
-
       default:
         return null;
     }
@@ -147,52 +168,58 @@ class Teachers extends Component {
           <span>Filter By : </span>
 
           <div className="filter-type">
-            {this.state.filterTypeValue}
-            <div className="options">
+            <select
+              name="filterTypeValue"
+              value={this.state.filterTypeValue}
+              onChange={e => this.handleFilterTypeValue(e.target.value)}
+            >
+              <option disabled value="default">
+                Select Filter Type
+              </option>
               {this.state.filterType.map(option => {
                 return (
-                  <span
-                    key={option}
-                    onClick={() => {
-                      this.handleFilterTypeValue(option);
-                    }}
-                  >
+                  <option key={option} value={option}>
                     {option}
-                  </span>
+                  </option>
                 );
               })}
-            </div>
-            &nbsp;&nbsp;&nbsp;
-            <i className="fas fa-arrow-down" />
+            </select>
           </div>
 
           <div className="filter-fields">
-            {
-              <React.Fragment>
-                {this.state.filterFieldValue}
-                &nbsp;&nbsp;&nbsp;
-                <i className="fas fa-arrow-down" />
-                <div className="filter-items-container">
-                  {this.state.filterFields.map(option => (
-                    <span
-                      key={option.name || option}
-                      onClick={() => {
-                        this.setState({
-                          filterFieldValue: option.name || option
-                        });
-                      }}
-                    >
-                      {option.name || option}
-                    </span>
-                  ))}
-                </div>
-              </React.Fragment>
-            }
-          </div>
+            <select
+              name="filterFieldValue"
+              value={this.state.filterFieldValue}
+              onChange={e => {
+                this.setState(
+                  {
+                    filterFieldValue: e.target.value
+                  },
+                  () => this.handleSubmit()
+                );
+              }}
+            >
+              <option value="default" default>
+                Select Filter Field
+              </option>
 
-          <button className="btn btn--primary" onClick={this.handleSubmit}>
-            Submit
-          </button>
+              {this.state.filterFields.map(option => (
+                <option
+                  key={option.name || option}
+                  value={option.name || option}
+                >
+                  {option.name || option}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="searchField">
+          <input
+            type="text"
+            placeholder="Enter name of teacher to search"
+            onChange={this.handleTeacherSearch}
+          />
         </div>
         <Table
           headers={['Name', 'Email', 'Department', 'Verified']}

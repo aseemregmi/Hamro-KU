@@ -13,6 +13,9 @@ class TeacherLoginForm extends Component {
   };
 
   handleChange = e => {
+    if (e.target.name === 'email') {
+      e.target.value = e.target.value.toLowerCase();
+    }
     this.setState({ [e.target.name]: e.target.value });
   };
 

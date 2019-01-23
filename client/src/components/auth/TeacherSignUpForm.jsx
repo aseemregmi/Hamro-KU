@@ -27,6 +27,9 @@ class TeacherSignupForm extends Component {
   }
 
   handleChange = e => {
+    if (e.target.name === 'email') {
+      e.target.value = e.target.value.toLowerCase();
+    }
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -45,40 +48,73 @@ class TeacherSignupForm extends Component {
       address
     } = this.state;
 
-    axios
-      .post('/api/teachers', {
-        name,
-        email,
-        password,
-        department,
-        phoneNo,
-        post,
-        address
-      })
-      .then(() => {
-        this.setState({
-          success:
-            'You successfully Signed Up. Please wait till we verify your account',
-          name: '',
-          email: '',
-          password: '',
-          phoneNo: '',
-          address: '',
-          department: 'default',
-          post: ''
-        });
-        setTimeout(() => {
+    if (name === '' || name.split(' ').length <= 1 || name.length < 9) {
+      this.setState({ error: 'Enter Valid Name' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
+    } else if (password.length <= 6) {
+      this.setState({ error: 'Password Should Be Larger Than 6 digits' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
+    } else if (parseInt(phoneNo).toString().length !== 10) {
+      this.setState({ error: 'Enter Valid Phone Number' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
+    } else if (address.split(' ').length < 2 || address.length < 7) {
+      this.setState({ error: 'Enter Valid Address' });
+      setTimeout(() => {
+        this.setState({ error: null });
+      }, 2000);
+    } else {
+      axios
+        .post('/api/teachers', {
+          name,
+          email,
+          password,
+          department,
+          phoneNo,
+          post,
+          address
+        })
+        .then(() => {
           this.setState({
-            success: null
+            success:
+              'You successfully Signed Up. Please wait till we verify your account',
+            name: '',
+            email: '',
+            password: '',
+            phoneNo: '',
+            address: '',
+            department: 'default',
+            post: ''
           });
-        }, 2000);
-      })
-      .catch(res => {
-        this.setState({ error: res.response.data });
-        setTimeout(() => {
-          this.setState({ error: null });
-        }, 2000);
-      });
+          setTimeout(() => {
+            this.setState({
+              success: null
+            });
+            this.props.history.push('/');
+          }, 6000);
+        })
+        .catch(res => {
+          console.log(res.response.data);
+          if (res.response.data.indexOf('to be unique') > 0) {
+            this.setState({
+              error: 'You Already Signed Up With These Credentials'
+            });
+            setTimeout(() => {
+              this.setState({ error: null });
+            }, 2000);
+          } else {
+            this.setState({ error: 'Unknown Error Occurred' });
+            setTimeout(() => {
+              this.setState({ error: null });
+            }, 2000);
+          }
+        });
+    }
   };
 
   render() {

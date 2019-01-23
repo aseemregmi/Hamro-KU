@@ -7,10 +7,10 @@ class Students extends Component {
   state = {
     students: [],
     studentsToBeDisplayed: [],
-    filterType: ['Verification', 'Group'],
-    filterTypeValue: 'Select Filter Type',
+    filterType: ['Verification', 'Group', 'Special Authority'],
+    filterTypeValue: 'default',
     filterFields: [],
-    filterFieldValue: 'First Select Filter Type',
+    filterFieldValue: 'default',
     displayModal: false,
     student: {}
   };
@@ -60,8 +60,11 @@ class Students extends Component {
   };
 
   handleSubmit = () => {
-    if (this.state.filterFieldValue.length > 15) {
-      alert('Choose Filter Options Wisely');
+    if (
+      this.state.filterFieldValue === 'default' ||
+      this.state.filterTypeValue === 'default'
+    ) {
+      return;
     }
 
     return new Promise((resolve, reject) => {
@@ -94,10 +97,45 @@ class Students extends Component {
             () => resolve()
           );
           break;
+
+        case 'Special Authority':
+          const studentsAuthorityWise = this.state.students
+            .slice()
+            .filter(student => {
+              if (this.state.filterFieldValue === 'Authorized') {
+                return student.specialAuthority;
+              } else {
+                return !student.specialAuthority;
+              }
+            });
+          this.setState(
+            {
+              studentsToBeDisplayed: studentsAuthorityWise
+            },
+            () => resolve()
+          );
+          break;
         default:
-          return null;
+          reject();
       }
     });
+  };
+
+  handleStudentSearch = e => {
+    const name = e.target.value;
+    if (name === '') {
+      this.setState({ studentsToBeDisplayed: this.state.students });
+    } else {
+      const name = e.target.value;
+      const students = this.state.students.slice().filter(student => {
+        if (student.name.toLowerCase().indexOf(name.toLowerCase()) >= 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      this.setState({ studentsToBeDisplayed: students });
+    }
   };
 
   handleFilterTypeValue = option => {
@@ -111,7 +149,8 @@ class Students extends Component {
             this.setState({
               filterTypeValue: option,
               filterFields: res.data,
-              filterFieldValue: 'Select Filter Field'
+              filterFieldValue: 'default',
+              studentsToBeDisplayed: this.state.students
             })
           )
           .catch(err => alert(err));
@@ -121,7 +160,17 @@ class Students extends Component {
         this.setState({
           filterFields: ['Verified', 'Not Verified'],
           filterTypeValue: option,
-          filterFieldValue: 'Select Filter Field'
+          filterFieldValue: 'default',
+          studentsToBeDisplayed: this.state.students
+        });
+        break;
+
+      case 'Special Authority':
+        this.setState({
+          filterFields: ['Authorized', 'Not Authorized'],
+          filterTypeValue: option,
+          filterFieldValue: 'default',
+          studentsToBeDisplayed: this.state.students
         });
         break;
 
@@ -144,56 +193,57 @@ class Students extends Component {
         <div className="students__filter-container">
           <span>Filter By : </span>
           <div className="filter-type">
-            {this.state.filterTypeValue}
-            <div className="options">
-              {this.state.filterType.map(option => {
-                return (
-                  <span
-                    key={option}
-                    onClick={() => {
-                      this.handleFilterTypeValue(option);
-                    }}
-                  >
-                    {option}
-                  </span>
-                );
-              })}
-            </div>
-            &nbsp;&nbsp;&nbsp;
-            <i className="fas fa-arrow-down" />
+            <select
+              name="filterTypeValue"
+              onChange={e => this.handleFilterTypeValue(e.target.value)}
+              value={this.state.filterTypeValue}
+            >
+              <option disabled value="default">
+                Select Filter Type
+              </option>
+              {this.state.filterType.map(option => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
-
           <div className="filter-fields">
-            {
-              <React.Fragment>
-                {this.state.filterFieldValue}
-                &nbsp;&nbsp;&nbsp;
-                <i className="fas fa-arrow-down" />
-                <div className="filter-items-container">
-                  {this.state.filterFields.map(option => (
-                    <span
-                      key={option.shortForm || option}
-                      onClick={() => {
-                        this.setState({
-                          filterFieldValue: option.shortForm || option
-                        });
-                      }}
-                    >
-                      {option.shortForm || option}
-                    </span>
-                  ))}
-                </div>
-              </React.Fragment>
-            }
+            <select
+              name="filterFieldValue"
+              value={this.state.filterFieldValue}
+              onChange={e =>
+                this.setState(
+                  {
+                    filterFieldValue: e.target.value
+                  },
+                  () => this.handleSubmit()
+                )
+              }
+            >
+              <option disabled value="default">
+                Select Filter Field Value`
+              </option>
+              {this.state.filterFields.map(option => (
+                <option
+                  key={option.shortForm || option}
+                  value={option.shortForm || option}
+                >
+                  {option.shortForm || option}
+                </option>
+              ))}
+            </select>
           </div>
-
-          <button className="btn btn--primary" onClick={this.handleSubmit}>
-            Submit
-          </button>
         </div>
-
+        <div className="searchField">
+          <input
+            type="search"
+            placeholder="Enter name of student to search"
+            onChange={this.handleStudentSearch}
+          />
+        </div>
         <Table
-          headers={['Name', 'Email', 'Group', 'Verified']}
+          headers={['Name', 'Email', 'Group', 'SpecialAuthority', 'Verified']}
           studentTable={true}
           data={this.state.studentsToBeDisplayed}
           handleDataInModal={this.handleDataInModal}

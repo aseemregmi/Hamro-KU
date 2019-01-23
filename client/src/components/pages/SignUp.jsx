@@ -35,9 +35,9 @@ class SignUp extends Component {
     return (
       <div className="signup-page">
         {!this.state.teacherForm ? (
-          <StudentSignupForm />
+          <StudentSignupForm {...this.props} />
         ) : (
-          <TeacherSignUpForm />
+          <TeacherSignUpForm {...this.props} />
         )}
 
         <div

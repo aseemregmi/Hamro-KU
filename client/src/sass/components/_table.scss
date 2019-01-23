@@ -4,7 +4,6 @@
 
   .heads {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     color: $color-white;
 
     & > * {
@@ -20,7 +19,6 @@
 
     .fields {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
 
       & > * {
         margin: 0 0.5rem;
