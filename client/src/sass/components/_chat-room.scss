@@ -4,6 +4,7 @@
   padding: 5rem;
   display: flex;
   flex-direction: column;
+  position: relative;
 
   &__messages {
     flex: 1;
@@ -24,6 +25,37 @@
         border-bottom: 1px solid #232323;
         padding-bottom: 3px;
         margin-bottom: 5px;
+      }
+    }
+  }
+
+  .userListContainer {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    background: #f9f9f9;
+    border: 2px solid #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+
+    .userList {
+      margin: 10px 0;
+      font-size: 1.2rem;
+      overflow: auto;
+      margin-bottom: 0;
+      width: 100px;
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      span {
+        display: flex;
+        width: 100px;
+        margin: 5px 0;
+        overflow: hidden;
       }
     }
   }

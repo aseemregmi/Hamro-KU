@@ -56,10 +56,7 @@
 
 @media (max-width: 570px) {
   .nav {
-    height: ($navbar-height * 2);
-
     &__buttons {
-      height: ($navbar-height * 2);
       margin-right: 2rem;
     }
 
