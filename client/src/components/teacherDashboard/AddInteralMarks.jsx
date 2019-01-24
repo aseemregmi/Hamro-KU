@@ -30,7 +30,7 @@ class AddInternalMarks extends Component {
           });
           this.setState({ studentIdWithMarks });
         })
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
   };
 
@@ -40,7 +40,7 @@ class AddInternalMarks extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ classes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   handleMarksInput = (index, marks, id) => {
@@ -70,8 +70,6 @@ class AddInternalMarks extends Component {
         classId = eachClass._id;
       }
     });
-
-    console.log(classId);
 
     if (
       examNo === '' ||
@@ -113,9 +111,7 @@ class AddInternalMarks extends Component {
             this.setState({ success: null });
           }, 2000);
         })
-        .catch(err => {
-          console.log(err);
-        });
+        .catch(err => {});
     }
   };
 

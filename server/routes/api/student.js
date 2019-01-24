@@ -96,7 +96,6 @@ router.post('/attendance', async (req, res) => {
 
     res.send('Successfull');
   } catch (err) {
-    console.log(err);
     res.status(400).send(err);
   }
 });

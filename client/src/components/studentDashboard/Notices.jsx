@@ -14,7 +14,7 @@ class Notices extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ classes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   handleChange = e => {
@@ -26,7 +26,7 @@ class Notices extends Component {
           headers: { token: this.props.token }
         })
         .then(res => this.setState({ notices: res.data }))
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
   };
 

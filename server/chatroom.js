@@ -17,6 +17,7 @@ let messages = {};
 
     // Check If User Already Exist
     let alreadyExist = false;
+
     await Promise.all(
       users.map(async user => {
         if (user.name === name) alreadyExist = true;
@@ -24,10 +25,8 @@ let messages = {};
     );
 
     if (alreadyExist) {
-      console.log('Old User Re Joined');
       socket.emit('redirect', {});
     } else {
-      console.log('New User Joined');
       socket.join(group, err => {
         if (err) {
           socket.emit('redirect', {});
@@ -54,58 +53,35 @@ let messages = {};
           socket.broadcast.to(group).emit('newMessageFromServer', {
             text: `${name} joined chat`
           });
+
+          // Push To Messages
+          messages[group].push({ text: `${name} joined` });
         }
       });
     }
 
     socket.on('end', async () => {
-      console.log(socket.id);
       socket.disconnect(true);
-      console.log('User Left');
-      const socketId = socket.id;
-      let user = {};
-
-      users = users.filter(userInside => {
-        if (socketId == userInside.socketId) {
-          console.log('ID Of leaving user matched');
-          user = userInside;
-          return false;
-        } else {
-          return true;
-        }
-      });
-
-      if (user) {
-        // Send Updated List To User
-        io.in(user.group).emit('userList', {
-          users
-        });
-
-        // Inform Everyone that he has left
-        socket.broadcast.to(user.group).emit('newMessageFromServer', {
-          text: user.name + ' has left'
-        });
-      }
     });
 
     socket.on('disconnect', async () => {
-      console.log(socket.id);
       socket.disconnect(true);
-      console.log('User Left');
+
       const socketId = socket.id;
       let user = {};
 
-      users = users.filter(userInside => {
-        if (socketId == userInside.socketId) {
-          console.log('ID Of leaving user matched');
-          user = userInside;
-          return false;
-        } else {
-          return true;
-        }
-      });
+      let newListOfUsers = [];
+      await Promise.all(
+        users.map(async userInside => {
+          if (socketId == userInside.socketId) {
+            user = userInside;
+          } else {
+            newListOfUsers.push(userInside);
+          }
+        })
+      );
 
-      console.log('This Ran After');
+      users = newListOfUsers;
 
       if (user) {
         // Send Updated List To User
@@ -117,11 +93,12 @@ let messages = {};
         socket.broadcast.to(user.group).emit('newMessageFromServer', {
           text: user.name + ' has left'
         });
+
+        messages[user.group].push({ text: user.name + ' left' });
       }
     });
 
     socket.on('newMessageFromClient', (message, callback) => {
-      console.log(message);
       callback();
       socket.broadcast.to(message.to).emit('newMessageFromServer', {
         from: message.from,

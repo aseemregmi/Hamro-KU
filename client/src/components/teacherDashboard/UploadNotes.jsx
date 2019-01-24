@@ -99,7 +99,7 @@ class UploadNotes extends Component {
           headers: { token: this.props.token }
         })
         .then(res => this.setState({ notesToBeDisplayed: res.data }))
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
   };
 

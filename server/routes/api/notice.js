@@ -29,7 +29,6 @@ router.post('/', checkIfTeacherTeachesInThatClass, async (req, res) => {
       class: classId,
       noticeDate: new Date()
     }).save();
-    console.log(notice);
     res.send(notice);
   } catch (err) {
     res.status(400).send();

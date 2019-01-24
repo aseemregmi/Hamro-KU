@@ -13,7 +13,7 @@ class Notes extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ classes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   onChange = e => {
@@ -22,7 +22,7 @@ class Notes extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ notes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
 
   render() {

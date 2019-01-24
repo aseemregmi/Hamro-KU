@@ -99,7 +99,6 @@ class TeacherSignupForm extends Component {
           }, 6000);
         })
         .catch(res => {
-          console.log(res.response.data);
           if (res.response.data.indexOf('to be unique') > 0) {
             this.setState({
               error: 'You Already Signed Up With These Credentials'

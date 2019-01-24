@@ -22,7 +22,6 @@ router.post(
       await classInDb.save();
       res.send(newRoutine);
     } catch (err) {
-      console.log(err);
       res.status(400).send(err);
     }
   }

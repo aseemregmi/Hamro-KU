@@ -17,7 +17,7 @@ class Map extends Component {
         height: 600,
         latitude: 27.619295,
         longitude: 85.538625,
-        zoom: 17
+        zoom: 15
       },
       position: { latitude: 27.619295, longitude: 85.538625 },
       popup: null,
@@ -29,17 +29,16 @@ class Map extends Component {
     axios
       .get('/api/departments')
       .then(res => {
-        console.log(res.data);
         this.setState({ departments: res.data });
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
 
     getCurrentPosition().then(position => {
       this.setState({
         viewport: {
           latitude: position.latitude,
           longitude: position.longitude,
-          zoom: 17
+          zoom: 15
         }
       });
     });
@@ -53,14 +52,12 @@ class Map extends Component {
           }
         });
       });
-    }, 1000);
+    }, 2000);
   }
 
   componentWillUnmount() {
-    // clearInterval(this.interval);
+    clearInterval(this.interval);
   }
-
-  handleMarkerClick = e => {};
 
   render() {
     const { departments } = this.state;
@@ -69,7 +66,7 @@ class Map extends Component {
         {...this.state.viewport}
         onViewportChange={viewport => this.setState({ viewport })}
         mapboxApiAccessToken={TOKEN}
-        mapStyle="mapbox://styles/mapbox/navigation-guidance-day-v4"
+        mapStyle="mapbox://styles/aseemregmi/cjral44u70hvp2smnqsyn54ac"
       >
         {departments.length > 0
           ? departments.map(department => (

@@ -12,7 +12,7 @@ class MyClasses extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ classes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   getDayFromNumber = num =>

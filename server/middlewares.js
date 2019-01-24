@@ -194,7 +194,6 @@ const checkEitherStudentOrTeacherBelongsToTheClass = async (req, res, next) => {
         res.status(401).send();
       }
     } else if (tokenInDB.userType === 'student') {
-      console.log('Student Request');
       const studentInDB = await Student.findById(tokenInDB.userId);
       if (studentInDB.group.equals(classInDB.group)) {
         next();

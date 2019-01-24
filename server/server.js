@@ -92,7 +92,6 @@ app.use('/api/notices', noticeApi);
 // Only Teachers Can Access This Route
 // Tested for all cases
 app.post('/fileupload', isAuthenticatedAsTeacher, (req, res) => {
-  console.log(req.headers.token);
   upload(req, res, err => {
     if (err) {
       res.render('index', {

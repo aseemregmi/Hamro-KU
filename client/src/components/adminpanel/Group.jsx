@@ -56,7 +56,6 @@ class Group extends Component {
         this.setState({
           error: err.response.data
         });
-        console.log(err.response.data);
         setTimeout(() => {
           this.setState({ error: null });
         }, 1500);

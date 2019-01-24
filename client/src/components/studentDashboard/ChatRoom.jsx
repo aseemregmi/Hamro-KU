@@ -22,9 +22,7 @@ class ChatRoom extends Component {
       }
     });
 
-    this.socket.on('connect', () => {
-      console.log('Connected To Server');
-    });
+    this.socket.on('connect', () => {});
   }
 
   handleChange = e => {

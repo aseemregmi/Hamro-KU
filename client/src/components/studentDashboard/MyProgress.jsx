@@ -86,7 +86,6 @@ class MyProgress extends Component {
     });
 
     let dummyArray = new Array(noOfExams).fill(null);
-    console.log('Number of exams : ', noOfExams);
     return dummyArray;
   };
 
@@ -111,8 +110,6 @@ class MyProgress extends Component {
       });
     });
 
-    console.log(this.getNoOfExamsHeldTillNow());
-
     axios
       .get(`/api/classes/?group=${this.props.student.group._id}`, {
         headers: { token: this.props.token }
@@ -125,7 +122,6 @@ class MyProgress extends Component {
                 name: `Exam ${index + 1}`,
                 data: this.state.classes.map(singleClass => {
                   let data = this.getObtainedMarks(singleClass._id, index + 1);
-                  console.log(data);
                   return data === undefined ? 0 : data;
                 })
               };
@@ -237,7 +233,7 @@ class MyProgress extends Component {
           });
         })
       )
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   getTotalClassDays = () => {

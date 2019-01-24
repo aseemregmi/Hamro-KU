@@ -19,7 +19,7 @@ class StudentRecord extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ classes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   onChange = e => {
@@ -32,7 +32,7 @@ class StudentRecord extends Component {
         .then(res =>
           this.setState({ students: res.data, studentId: 'default' })
         )
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
   };
 
@@ -75,14 +75,14 @@ class StudentRecord extends Component {
           headers: { token: this.props.token }
         })
         .then(res => this.setState({ attendanceData: res.data }))
-        .catch(err => console.log(err));
+        .catch(err => {});
 
       axios
         .get(`/api/internalExamMarks?class=${classId}&student=${studentId}`, {
           headers: { token: this.props.token }
         })
         .then(res => this.setState({ internalExamMarksData: res.data }))
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
   };
 

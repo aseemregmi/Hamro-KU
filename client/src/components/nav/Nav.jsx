@@ -33,7 +33,6 @@ class NavBar extends Component {
       // this.props.history.push('/');
       this.props.dispatch({ type: 'LOGOUT' });
     } catch (err) {
-      console.log(err);
       alert(err);
     }
   };

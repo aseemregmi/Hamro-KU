@@ -69,7 +69,7 @@ class ManageClassesAndRoutines extends Component {
       .then(res => {
         this.componentDidMount();
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
 
   handleModal = modalData => {
@@ -95,11 +95,10 @@ class ManageClassesAndRoutines extends Component {
         }
       )
       .then(res => {
-        console.log(res);
         this.setState({ modal: false });
         this.componentDidMount();
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
 
   render() {

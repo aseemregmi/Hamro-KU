@@ -17,7 +17,7 @@ class ManageAttendance extends Component {
         headers: { token: this.props.token }
       })
       .then(res => this.setState({ classes: res.data }))
-      .catch(err => console.log(err));
+      .catch(err => {});
   }
 
   handleSubmit = e => {
@@ -83,7 +83,7 @@ class ManageAttendance extends Component {
           });
           this.setState({ studentWithAttendance });
         })
-        .catch(err => console.log(err));
+        .catch(err => {});
     }
   };
 
