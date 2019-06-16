@@ -25,7 +25,8 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    axios('/api/kunewsandevents')
+    axios
+      .get('/api/kunewsandevents')
       .then(res => {
         const { news, notice } = res.data;
         this.setState({ news, notice, fetchingStatus: 'fetched' });
@@ -45,6 +46,8 @@ class Home extends Component {
       alert(err);
     }
   };
+
+  test = () => {};
 
   render() {
     return (

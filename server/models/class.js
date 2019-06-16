@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-const date = new Date().getDay();
-
 let ClassSchema = new mongoose.Schema({
   subject: {
     type: mongoose.Schema.Types.ObjectId,

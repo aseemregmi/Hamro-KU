@@ -79,7 +79,6 @@ class SendNotice extends Component {
     return (
       <div className="sendnotice">
         <h1 className="heading1">Send Notice</h1>
-
         <form onSubmit={this.handleSubmit}>
           {this.state.error ? (
             <p className="error-msg">{JSON.stringify(this.state.error)}</p>
